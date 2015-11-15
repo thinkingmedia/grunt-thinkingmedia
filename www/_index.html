@@ -1,0 +1,31 @@
+<!doctype html>
+<html class="no-js" lang="en" ng-app="App">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>ThinkingMedia</title>
+    <base href="/">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>"/><% }); %>
+</head>
+<body>
+
+<div ui-view="main"></div>
+
+<% scripts.forEach( function ( file ) { %><script type="text/javascript" src="<%= file %>"></script>
+<% }); %>
+
+<script>
+    (function(app){
+        app.value('APP_VERSION', '<%= version %>')
+           .config(['RestangularProvider', function(RestangularProvider) {
+                        RestangularProvider.setBaseUrl('<%= api %>');
+        }]);
+    })(angular.module('App'));
+</script>
+
+</body>
+</html>

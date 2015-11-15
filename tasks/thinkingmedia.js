@@ -6,16 +6,23 @@
  * Licensed under the MIT license.
  */
 
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
+    var promises = require('./lib/promises').init(grunt);
 
-  grunt.registerMultiTask('thinkingmedia', 'Build tools for working on AngularJS projects.', function() {
+    grunt.task.registerMultiTask('thinkingmedia', 'Build tools for working on AngularJS projects.', function () {
 
-    var options = this.options({
+        var options = this.options({
+            uri: './www/',
+            uriCss: './www/css/',
+            uriImg: './www/img/',
+            uriJs: './www/js/',
+            uriSrc: './www/src/',
+            uriBuild: './build/'
+        });
+
+        grunt.log.writeln(this.target + ': ' + this.data);
+        grunt.log.writeln(JSON.stringify(this.options()));
     });
-
-  });
 
 };

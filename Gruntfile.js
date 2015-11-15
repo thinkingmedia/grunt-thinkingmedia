@@ -12,16 +12,22 @@ module.exports = function (grunt) {
     grunt.initConfig({
         // Before generating any new files, remove any previously-created files.
         clean: {
-            tests: ['tmp']
+            tests: ['build']
         },
 
         // Configuration to be run (and then tested).
         thinkingmedia: {
+            thing: {
+                that: true
+            },
+            other: {
+                bob: 'heelo'
+            }
         },
 
         // Unit tests.
         nodeunit: {
-            tests: ['test/*_test.js']
+            tests: ['test/**/*_test.js']
         }
 
     });
