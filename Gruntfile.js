@@ -13,6 +13,12 @@ module.exports = function (grunt) {
             tests: ['build']
         },
 
+        init: {
+            options: {
+                build: './build'
+            },
+        },
+
         thinkingmedia: {
             options: {
                 build: './build'
@@ -34,6 +40,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
-    grunt.registerTask('test', ['clean', 'thinkingmedia', 'nodeunit']);
-    grunt.registerTask('default', ['test']);
+    //grunt.registerTask('test', ['clean', 'thinkingmedia', 'nodeunit']);
+    //grunt.registerTask('default', ['test']);
 };
