@@ -1,33 +1,19 @@
-/*
- * grunt-thinkingmedia
- * https://github.com/mathew/grunt-thinkingmedia
- *
- * Copyright (c) 2015 ThinkingMedia
- * Licensed under the MIT license.
- */
-
 module.exports = function (grunt) {
 
     grunt.initConfig({
         clean: {
-            tests: ['build']
-        },
-
-        init: {
-            options: {
-                build: './build'
-            },
+            tests: [
+                'build',
+                './www/css/App'
+            ]
         },
 
         thinkingmedia: {
             options: {
                 build: './build'
             },
-            dev: {
-            },
-            prod: {
-
-            }
+            dev: {},
+            prod: {}
         },
 
         nodeunit: {
@@ -40,6 +26,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
 
-    //grunt.registerTask('test', ['clean', 'thinkingmedia', 'nodeunit']);
-    //grunt.registerTask('default', ['test']);
+    grunt.registerTask('test', ['clean', 'dev', 'nodeunit']);
+    grunt.registerTask('default', ['clean', 'dev']);
 };
