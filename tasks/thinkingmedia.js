@@ -79,6 +79,7 @@ module.exports = function (grunt) {
         config.defaults(this).then(function (options) {
             runTasks('prod.', [
                 'sass:prod',
+                'concat:css',
                 'concat:source'
             ], options);
         }).catch(function(err){

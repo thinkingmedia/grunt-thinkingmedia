@@ -26,9 +26,17 @@ module.exports = function (grunt) {
                 version: 'test'
             }
         },
+
         prod: {
             concat: {
-                source: 'app.js'
+                full: {
+                    js: 'js/app.js',
+                    css: 'css/app.css'
+                },
+                min: {
+                    js: 'js/app.min.js',
+                    css: 'css/app.min.css'
+                }
             },
             minify: {
                 js: [
@@ -52,11 +60,11 @@ module.exports = function (grunt) {
                     api: 'http://api.example.com/'
                 },
                 version: 'test',
-                copy: [
-                    '.htaccess',
-                    'img/**/*.*'
-                ]
-            }
+            },
+            copy: [
+                '.htaccess',
+                'img/**/*.*'
+            ]
         },
 
         nodeunit: {
