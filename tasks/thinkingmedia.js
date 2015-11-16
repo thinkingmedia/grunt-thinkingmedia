@@ -7,8 +7,8 @@ module.exports = function (grunt) {
     var logger = require('./lib/logger').init(grunt);
     var config = require('./lib/config').init(grunt);
 
-    var subTasks = _.map(['sass'], function (key) {
-        grunt.verbose.writeln("Loading sub-task "+key);
+    var subTasks = _.map(['index'], function (key) {
+        grunt.verbose.writeln("Loading sub-task " + key);
         return {
             name: key,
             config: require('./grunt/' + key)(grunt)
@@ -19,9 +19,12 @@ module.exports = function (grunt) {
         var done = this.async();
         config.defaults(this)
             .then(function (options) {
+                grunt.verbose.writeln("Options: " + JSON.stringify(options));
                 _.each(subTasks, function (subTask) {
-                    grunt.config.set(subTask.name, subTask.config(options));
-                    grunt.task.run([subTask.name + ':dev']);
+                    var opt = _.clone(options);
+                    opt[subTask.name] = grunt.config.get("dev." + subTask.name) || {};
+                    grunt.config.set(subTask.name, subTask.config(opt));
+                    grunt.task.run([subTask.name]);
                 });
             })
             .finally(function () {

@@ -4,16 +4,29 @@ module.exports = function (grunt) {
         clean: {
             tests: [
                 'build',
-                './www/css/App'
+                './www/css/App',
+                './www/index.html'
             ]
         },
 
-        thinkingmedia: {
+        dev: {
             options: {
                 build: './build'
             },
-            dev: {},
-            prod: {}
+            index: {
+                js: [
+                    "http://www.example.com/extra.js",
+                    "bower/component/dist/component.min.js"
+                ],
+                css: [
+                    "http://www.example.com/extra.css",
+                    "bower/component/dist/component.css"
+                ],
+                data: {
+                    api: 'http://api.example.com/'
+                },
+                version: 'test'
+            }
         },
 
         nodeunit: {

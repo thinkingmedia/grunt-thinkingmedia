@@ -14,8 +14,9 @@ exports.init = function (grunt) {
                 src: './www/src',
                 build: './build'
             });
+
             var checkDirectories = _.map(['www', 'css', 'src'], function (key) {
-                options[key] = path.resolve(options[key]) + "/";
+                options[key] = path.resolve(options[key]) + path.sep;
                 return fs.stat(options[key]).then(function (stat) {
                     if (!stat.isDirectory()) {
                         throw Error('not a directory');

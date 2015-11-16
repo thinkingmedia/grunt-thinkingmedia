@@ -1,0 +1,34 @@
+<!doctype html>
+<html class="no-js" lang="en" ng-app="App">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>ThinkingMedia</title>
+    <base href="/">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    
+    <link rel="stylesheet" type="text/css" href="http://www.example.com/extra.css"/>
+    <link rel="stylesheet" type="text/css" href="/bower/component/dist/component.css"/>
+</head>
+<body>
+
+<div ui-view="main"></div>
+
+<script type="text/javascript" src="http://www.example.com/extra.js"></script>
+<script type="text/javascript" src="/bower/component/dist/component.min.js"></script>
+<script type="text/javascript" src="/App/App.js"></script>
+
+
+<script>
+    (function(app){
+        app.value('APP_VERSION', 'test')
+           .config(['RestangularProvider', function(RestangularProvider) {
+                        RestangularProvider.setBaseUrl('http://api.example.com/');
+        }]);
+    })(angular.module('App'));
+</script>
+
+</body>
+</html>
