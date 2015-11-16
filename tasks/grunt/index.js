@@ -12,7 +12,7 @@ module.exports = function (grunt) {
         return url;
     }
 
-    grunt.registerMultiTask('index', function () {
+    grunt.registerMultiTask('index', "Compiles the _index.html template to index.html", function () {
         var self = this;
         var options = this.options();
 

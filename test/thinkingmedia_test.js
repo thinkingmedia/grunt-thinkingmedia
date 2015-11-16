@@ -15,7 +15,7 @@ exports.thinkingmedia = {
     sass: function (test) {
         test.expect(1);
         var res = dircompare.compareSync('test/expected/css', 'www/css');
-        test.equal(true, res.same, 'should match exclusions');
+        test.equal(true, res.same, 'CSS directories should match');
         test.done();
     },
 

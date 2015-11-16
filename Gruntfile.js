@@ -20,7 +20,8 @@ module.exports = function (grunt) {
                 ],
                 css: [
                     "http://www.example.com/extra.css",
-                    "bower/component/dist/component.css"
+                    "bower/component/dist/component.css",
+                    "css/App/App.css"
                 ],
                 data: {
                     api: 'http://api.example.com/'
