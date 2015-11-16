@@ -1,0 +1,22 @@
+{
+  "name": "grunt-thinkingmedia",
+  "version": "0.1.0",
+  "homepage": "https://github.com/mathew/grunt-thinkingmedia",
+  "authors": [
+    "thinkingmedia <support@thinkingmedia.ca>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "www/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.3",
+    "normalize.css": "~3.0.3",
+    "lodash": "~3.10.0",
+    "jquery": "~2.1.4"
+  }
+}

@@ -6,6 +6,17 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-sass');
 
     return function (options) {
+
+        function rewrite(dest, src) {
+            dest = path.resolve(dest) + path.sep;
+            src = path.resolve(src).substr(options.src.length);
+            var file = dest + src;
+            var parse = path.parse(file);
+            var outfile = parse.dir + path.sep + parse.name + ".css";
+            grunt.verbose.writeln("Rename: " + outfile);
+            return outfile;
+        }
+
         return {
             dev: {
                 options: {
@@ -15,22 +26,11 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     src: [
-                        options['src'] + "**/*.scss",
-                        '!' + options['src'] + "**/_*.scss"
+                        options.src + "**/*.scss",
+                        '!' + options.src + "**/_*.scss"
                     ],
-                    dest: options['css'],
-                    rename: function (dest, src) {
-                        // rewrite the source path to dest
-                        dest = path.resolve(dest) + path.sep;
-                        src = path.resolve(src).substr(options['src'].length);
-                        var file = dest + src;
-                        var parse = path.parse(file);
-                        var outfile = parse.dir + path.sep + parse.name + ".css";
-
-                        grunt.verbose.writeln("Rename: " + outfile);
-
-                        return outfile;
-                    }
+                    dest: options.css,
+                    rename: rewrite
                 }]
             },
             prod: {
@@ -41,10 +41,12 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    src: [grunt.uriSrc + "/UI.scss"],
-                    rename: function () {
-                        return options['css'] + "thinkingmedia-ui.min.css"
-                    }
+                    src: [
+                        options.src + "**/*.scss",
+                        '!' + options.src + "**/_*.scss"
+                    ],
+                    dest: options.build + path.sep + 'css',
+                    rename: rewrite
                 }]
             }
         }

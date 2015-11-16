@@ -10,23 +10,49 @@ module.exports = function (grunt) {
         },
 
         dev: {
-            options: {
-                build: './build'
-            },
             index: {
                 js: [
-                    "http://www.example.com/extra.js",
-                    "bower/component/dist/component.min.js"
+                    "bower/jquery/dest/jquery.js",
+                    "bower/angular/angular.js",
+                    "bower/lodash/lodash.js"
                 ],
                 css: [
-                    "http://www.example.com/extra.css",
-                    "bower/component/dist/component.css",
+                    "bower/normalize.css/normalize.css",
                     "css/App/App.css"
                 ],
                 data: {
                     api: 'http://api.example.com/'
                 },
                 version: 'test'
+            }
+        },
+        prod: {
+            minify: {
+                js: [
+                    "bower/jquery/dest/jquery.min.js",
+                    "bower/angular/angular.min.js",
+                    "bower/lodash/lodash.min.js"
+                ],
+                css: [
+                    'bower/normalize.css/normalize.css',
+                    'css/App/App.css'
+                ]
+            },
+            index: {
+                js: [
+                    "js/app.min/js"
+                ],
+                css: [
+                    'css/app.min.css'
+                ],
+                data: {
+                    api: 'http://api.example.com/'
+                },
+                version: 'test',
+                copy: [
+                    '.htaccess',
+                    'img/**/*.*'
+                ]
             }
         },
 
