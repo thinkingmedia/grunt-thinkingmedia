@@ -1,3 +1,6 @@
+var path = require('path');
+var _ = require('lodash');
+
 module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-sass');
@@ -12,10 +15,21 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     src: [
-                        "./www/**/*.scss"
+                        options['src'] + "**/*.scss",
+                        '!' + options['src'] + "**/_*.scss"
                     ],
-                    rename: function () {
-                        return options['css'] + "output.css"
+                    dest: options['css'],
+                    rename: function (dest, src) {
+                        // rewrite the source path to dest
+                        dest = path.resolve(dest) + path.sep;
+                        src = path.resolve(src).substr(options['src'].length);
+                        var file = dest + src;
+                        var parse = path.parse(file);
+                        var outfile = parse.dir + path.sep + parse.name + ".css";
+
+                        grunt.verbose.writeln("Rename: " + outfile);
+
+                        return outfile;
                     }
                 }]
             },
