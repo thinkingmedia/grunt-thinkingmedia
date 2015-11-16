@@ -27,6 +27,9 @@ module.exports = function (grunt) {
             }
         },
         prod: {
+            concat: {
+                source: 'app.js'
+            },
             minify: {
                 js: [
                     "bower/jquery/dest/jquery.min.js",
@@ -40,7 +43,7 @@ module.exports = function (grunt) {
             },
             index: {
                 js: [
-                    "js/app.min/js"
+                    "js/app.min.js"
                 ],
                 css: [
                     'css/app.min.css'

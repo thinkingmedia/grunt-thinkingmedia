@@ -1,4 +1,5 @@
 var _ = require('lodash');
+var values = require('../lib/values');
 
 module.exports = function (grunt) {
 
@@ -39,34 +40,15 @@ module.exports = function (grunt) {
     });
 
     return function (options) {
-
-        function toValue(value) {
-            return _.isFunction(value) ? value() : value;
-        }
-
-        function toArray(value) {
-            value = toValue(value);
-            return _.isArray(value) ? value : [value];
-        }
-
-        function toObject(value) {
-            value = toValue(value);
-            if (_.isObject(value)) {
-                return value;
-            }
-            grunt.warn("index.data was not an object. Value is ignored.")
-            return {};
-        }
-
         return {
             options: {
-                js: toArray(options.index.js || []),
-                css: toArray(options.index.css || []),
-                data: toObject(options.index.data || {}),
+                js: values.toArray(options.index.js || []),
+                css: values.toArray(options.index.css || []),
+                data: values.toObject(options.index.data || {}),
                 www: options.www,
-                template: toValue(options.index.template) || (options.www + '_index.html'),
-                dest: toValue(options.index.dest) || (options.www + 'index.html'),
-                version: toValue(options.index.version) || 'auto'
+                template: values.toValue(options.index.template) || (options.www + '_index.html'),
+                dest: values.toValue(options.index.dest) || (options.www + 'index.html'),
+                version: values.toValue(options.index.version) || 'auto'
             },
             files: {
                 cwd: options.src,

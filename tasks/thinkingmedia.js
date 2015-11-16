@@ -13,7 +13,8 @@ module.exports = function (grunt) {
     var subTasks = _.mapValues({
         'sass': {},
         'index': {},
-        'watcher': {}
+        'watcher': {},
+        'concat': {},
     }, function (value, key) {
         grunt.verbose.writeln("Loading sub-task " + key);
         return {
@@ -52,6 +53,8 @@ module.exports = function (grunt) {
         var done = this.async();
         config.defaults(this).then(function (options) {
             runTasks('', ['watcher'], options);
+        }).catch(function(err){
+            grunt.fail.fatal(err);
         }).finally(function () {
             done();
         });
@@ -60,7 +63,12 @@ module.exports = function (grunt) {
     grunt.task.registerTask('dev', 'Builds the development version of the project.', function () {
         var done = this.async();
         config.defaults(this).then(function (options) {
-            runTasks('dev.', ['sass:dev', 'index'], options);
+            runTasks('dev.', [
+                'sass:dev',
+                'index'
+            ], options);
+        }).catch(function(err){
+            grunt.fail.fatal(err);
         }).finally(function () {
             done();
         });
@@ -69,7 +77,12 @@ module.exports = function (grunt) {
     grunt.task.registerTask('build', 'Builds the production version of the project.', function () {
         var done = this.async();
         config.defaults(this).then(function (options) {
-            runTasks('prod.', ['sass:prod', 'index'], options);
+            runTasks('prod.', [
+                'sass:prod',
+                'concat:source'
+            ], options);
+        }).catch(function(err){
+            grunt.fail.fatal(err);
         }).finally(function () {
             done();
         });
