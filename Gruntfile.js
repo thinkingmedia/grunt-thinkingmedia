@@ -18,42 +18,41 @@ module.exports = function (grunt) {
             ]
         },
 
-        dev: {
-            index: {
-                js: [
-                    "bower/jquery/dest/jquery.js",
-                    "bower/angular/angular.js",
-                    "bower/lodash/lodash.js"
-                ],
-                css: [
-                    "bower/normalize.css/normalize.css"
-                ],
-                data: {
-                    api: 'http://api.example.com/'
+        index: {
+            dev: {
+                options: {
+                    js: [
+                        "bower/jquery/dest/jquery.js",
+                        "bower/angular/angular.js",
+                        "bower/lodash/lodash.js"
+                    ],
+                    css: [
+                        "bower/normalize.css/normalize.css"
+                    ],
+                    data: {
+                        api: 'http://api.example.com/'
+                    },
+                    version: 'test'
                 },
-                version: 'test'
-            }
-        },
-
-        prod: {
-
-            index: {
-                js: [
-                    '/js/app.min.js'
-                ],
-                css: [
-                    '/css/app.min.css'
-                ],
-                data: {
-                    api: 'http://api.example.com/'
-                },
-                version: 'test'
+                src: './www/_index.html',
+                dest: './www/index.html'
             },
-
-            copy: [
-                '.htaccess',
-                'img/**/*.*'
-            ]
+            build: {
+                options: {
+                    js: [
+                        '/js/app.min.js'
+                    ],
+                    css: [
+                        '/css/app.min.css'
+                    ],
+                    data: {
+                        api: 'http://api.example.com/'
+                    },
+                    version: 'test'
+                },
+                src: './www/_index.html',
+                dest: './build/index.html'
+            }
         },
 
         package: {

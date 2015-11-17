@@ -2,6 +2,7 @@ var _ = require('lodash');
 var Q = require('q');
 
 module.exports = function (grunt) {
+    return;
 
     var promises = require('./lib/promises').init(grunt);
     var logger = require('./lib/logger').init(grunt);
