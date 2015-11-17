@@ -23,6 +23,7 @@ exports.init = function (grunt) {
                     }
                 });
             });
+
             return Q.all(checkDirectories).then(function () {
                 return options;
             }).catch(function (err) {

@@ -25,7 +25,6 @@ module.exports = function (grunt) {
             return options.version || 0;
         }
 
-
         grunt.file.copy(options.template, options.dest, {
             process: function (contents) {
                 return grunt.template.process(contents, {

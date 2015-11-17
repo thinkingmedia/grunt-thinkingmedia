@@ -9,6 +9,15 @@ module.exports = function (grunt) {
             ]
         },
 
+        sources: {
+            'app.js': [
+                './www/src'
+            ],
+            'app.css': [
+                './css/App/App.css'
+            ]
+        },
+
         dev: {
             index: {
                 js: [
@@ -17,8 +26,7 @@ module.exports = function (grunt) {
                     "bower/lodash/lodash.js"
                 ],
                 css: [
-                    "bower/normalize.css/normalize.css",
-                    "css/App/App.css"
+                    "bower/normalize.css/normalize.css"
                 ],
                 data: {
                     api: 'http://api.example.com/'
@@ -28,39 +36,75 @@ module.exports = function (grunt) {
         },
 
         prod: {
-            concat: {
-                full: {
-                    js: 'js/app.js',
-                    css: 'css/app.css'
+            package: {
+
+                // package vendor libraries into a temp file
+                vendors: {
+                    src: [
+                        "./www/bower/jquery/dest/jquery.min.js",
+                        "./www/bower/angular/angular.min.js",
+                        "./www/bower/lodash/lodash.min.js"
+                    ],
+                    dest: "./build/js/vendors.min.js"
                 },
-                min: {
-                    js: 'js/app.min.js',
-                    css: 'css/app.min.css'
+
+                // package source code into a temp file
+                source: {
+                    src: [
+                        './www/src/**/*.js'
+                    ],
+                    minify: true,
+                    dest: "./build/js/source.min.js"
+                },
+
+                // package vendors and source together
+                packageJs: {
+                    src: [
+                        './build/js/vendors.min.js',
+                        './build/js/source.min.js'
+                    ],
+                    dest: './build/js/app.min.js',
+                    clear: [
+                        './build/js/vendors.min.js',
+                        './build/js/source.min.js'
+                    ]
+                },
+
+                // package CSS files into temp file
+                css: {
+                    src: [
+                        './www/css/**/*.css'
+                    ],
+                    minify: true,
+                    dest: './build/css/source.min.css'
+                },
+
+                // package vendor and source CSS together
+                cassJs: {
+                    src: [
+                        './www/bower/normalize.css/normalize.css',
+                        './build/css/source.min.css'
+                    ],
+                    dest: './build/css/app.min.css',
+                    clear: [
+                        './build/css/source.min.css'
+                    ]
                 }
             },
-            minify: {
-                js: [
-                    "bower/jquery/dest/jquery.min.js",
-                    "bower/angular/angular.min.js",
-                    "bower/lodash/lodash.min.js"
-                ],
-                css: [
-                    'bower/normalize.css/normalize.css',
-                    'css/App/App.css'
-                ]
-            },
+
             index: {
                 js: [
-                    "js/app.min.js"
+                    '/js/app.min.js'
                 ],
                 css: [
-                    'css/app.min.css'
+                    '/css/app.min.css'
                 ],
                 data: {
                     api: 'http://api.example.com/'
                 },
-                version: 'test',
+                version: 'test'
             },
+
             copy: [
                 '.htaccess',
                 'img/**/*.*'

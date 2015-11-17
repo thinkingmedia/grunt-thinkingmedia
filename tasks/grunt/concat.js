@@ -35,6 +35,12 @@ module.exports = function (grunt) {
                     '!' + options.src + '**/*_test.js'
                 ],
                 dest: options.build + path.sep + 'js' + path.sep + fileName
+            },
+            css: {
+                src: [
+                    options.build + path.sep + 'css/**/*.css'
+                ],
+                dest: options.build + path.sep + 'css' + path.sep + '_tmp_source.css'
             }
         };
     };

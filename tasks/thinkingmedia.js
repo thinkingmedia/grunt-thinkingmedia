@@ -15,6 +15,7 @@ module.exports = function (grunt) {
         'index': {},
         'watcher': {},
         'concat': {},
+        'package': {},
     }, function (value, key) {
         grunt.verbose.writeln("Loading sub-task " + key);
         return {
@@ -36,7 +37,7 @@ module.exports = function (grunt) {
             if (!subTasks.hasOwnProperty(name[0])) {
                 grunt.fail.fatal('subTask is not defined: ' + name[0]);
             }
-            var task = subTasks[name[0]];
+            var task = _.clone(subTasks[name[0]]);
             task.target = name.length == 2 ? name[1] : null;
             return task;
         });
@@ -78,9 +79,8 @@ module.exports = function (grunt) {
         var done = this.async();
         config.defaults(this).then(function (options) {
             runTasks('prod.', [
-                'sass:prod',
-                'concat:css',
-                'concat:source'
+                'sass:dev',
+                'package'
             ], options);
         }).catch(function(err){
             grunt.fail.fatal(err);
