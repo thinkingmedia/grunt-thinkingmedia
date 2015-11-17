@@ -61,6 +61,11 @@ module.exports = function (grunt) {
         }
         dest = _.isArray(dest) ? dest[0] : dest;
 
+        var codes;
+        grunt.file.expandMapping( options.code, codes, {});
+        console.log(codes);
+        return;
+
         grunt.file.copy(src, dest, {
             process: function (contents) {
                 return grunt.template.process(contents, {
