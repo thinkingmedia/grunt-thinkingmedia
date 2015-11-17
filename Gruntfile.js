@@ -36,61 +36,6 @@ module.exports = function (grunt) {
         },
 
         prod: {
-            package: {
-
-                // package vendor libraries into a temp file
-                vendors: {
-                    src: [
-                        "./www/bower/jquery/dest/jquery.min.js",
-                        "./www/bower/angular/angular.min.js",
-                        "./www/bower/lodash/lodash.min.js"
-                    ],
-                    dest: "./build/js/vendors.min.js"
-                },
-
-                // package source code into a temp file
-                source: {
-                    src: [
-                        './www/src/**/*.js'
-                    ],
-                    minify: true,
-                    dest: "./build/js/source.min.js"
-                },
-
-                // package vendors and source together
-                packageJs: {
-                    src: [
-                        './build/js/vendors.min.js',
-                        './build/js/source.min.js'
-                    ],
-                    dest: './build/js/app.min.js',
-                    clear: [
-                        './build/js/vendors.min.js',
-                        './build/js/source.min.js'
-                    ]
-                },
-
-                // package CSS files into temp file
-                css: {
-                    src: [
-                        './www/css/**/*.css'
-                    ],
-                    minify: true,
-                    dest: './build/css/source.min.css'
-                },
-
-                // package vendor and source CSS together
-                cassJs: {
-                    src: [
-                        './www/bower/normalize.css/normalize.css',
-                        './build/css/source.min.css'
-                    ],
-                    dest: './build/css/app.min.css',
-                    clear: [
-                        './build/css/source.min.css'
-                    ]
-                }
-            },
 
             index: {
                 js: [
@@ -109,6 +54,62 @@ module.exports = function (grunt) {
                 '.htaccess',
                 'img/**/*.*'
             ]
+        },
+
+        package: {
+
+            // package vendor libraries into a temp file
+            vendors: {
+                src: [
+                    "./www/bower/jquery/dest/jquery.min.js",
+                    "./www/bower/angular/angular.min.js",
+                    "./www/bower/lodash/lodash.min.js"
+                ],
+                dest: "./build/js/vendors.min.js"
+            },
+
+            // package source code into a temp file
+            source: {
+                src: [
+                    './www/src/**/*.js'
+                ],
+                minify: true,
+                dest: "./build/js/source.min.js"
+            },
+
+            // package vendors and source together
+            packageJs: {
+                src: [
+                    './build/js/vendors.min.js',
+                    './build/js/source.min.js'
+                ],
+                dest: './build/js/app.min.js',
+                clear: [
+                    './build/js/vendors.min.js',
+                    './build/js/source.min.js'
+                ]
+            },
+
+            // package CSS files into temp file
+            css: {
+                src: [
+                    './www/css/**/*.css'
+                ],
+                minify: true,
+                dest: './build/css/source.min.css'
+            },
+
+            // package vendor and source CSS together
+            cassJs: {
+                src: [
+                    './www/bower/normalize.css/normalize.css',
+                    './build/css/source.min.css'
+                ],
+                dest: './build/css/app.min.css',
+                clear: [
+                    './build/css/source.min.css'
+                ]
+            }
         },
 
         nodeunit: {

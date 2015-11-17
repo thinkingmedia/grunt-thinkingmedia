@@ -13,9 +13,7 @@ module.exports = function (grunt) {
     var subTasks = _.mapValues({
         'sass': {},
         'index': {},
-        'watcher': {},
-        'concat': {},
-        'package': {},
+        'watcher': {}
     }, function (value, key) {
         grunt.verbose.writeln("Loading sub-task " + key);
         return {
