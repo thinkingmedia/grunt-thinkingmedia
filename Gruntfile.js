@@ -1,12 +1,28 @@
 module.exports = function (grunt) {
 
     grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+
         clean: {
             tests: [
                 'build',
                 './www/css/App',
                 './www/index.html'
             ]
+        },
+
+        readme_generator: {
+            readme: {
+                options: {
+                    github_username: 'thinkingmedia',
+                    travis_branch: 'master'
+                },
+                order: {
+                    'usage.md': 'Usage',
+                    'index.md': 'Index Task',
+                    'package.md': 'Package Task'
+                }
+            }
         },
 
         sources: {
@@ -26,6 +42,7 @@ module.exports = function (grunt) {
                         "bower/angular/angular.js",
                         "bower/lodash/lodash.js"
                     ],
+                    // you will want to use cwd so valid URL paths are created.
                     include: {
                         cwd: './www',
                         src: [
@@ -128,6 +145,7 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
+    grunt.loadNpmTasks('grunt-readme-generator');
 
     grunt.registerTask('test', ['clean', 'dev', 'nodeunit']);
     grunt.registerTask('default', ['clean', 'dev']);

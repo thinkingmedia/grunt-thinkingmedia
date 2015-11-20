@@ -65,7 +65,9 @@ module.exports = function (grunt) {
         var includes = [];
         if(_.isObject(options.include) && _.isArray(options.include.src)) {
             includes = grunt.file.expandMapping(options.include.src, '', options.include);
-            //includes = _.flatten(_.map(tmp,function(t) { return t.src; }));
+            includes = _.map(includes,function(include) {
+                return include.dest;
+            });
         } else if(_.isArray(options.include)) {
             includes = grunt.file.expand(options.include);
         }
