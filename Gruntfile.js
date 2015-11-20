@@ -18,6 +18,7 @@ module.exports = function (grunt) {
                     travis_branch: 'master'
                 },
                 order: {
+                    'overview.md': 'Overview',
                     'usage.md': 'Usage',
                     'index.md': 'Index Task',
                     'package.md': 'Package Task'
