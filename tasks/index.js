@@ -36,7 +36,8 @@ module.exports = function (grunt) {
         var self = this;
         var options = this.options({
             js: [],
-            css: []
+            css: [],
+            include: []
         });
 
         if(self.files.length == 0) {
@@ -61,9 +62,14 @@ module.exports = function (grunt) {
         }
         dest = _.isArray(dest) ? dest[0] : dest;
 
-        var codes;
-        grunt.file.expandMapping( options.code, codes, {});
-        console.log(codes);
+        var includes = [];
+        if(_.isObject(options.include) && _.isArray(options.include.src)) {
+            includes = grunt.file.expandMapping(options.include.src, '', options.include);
+            //includes = _.flatten(_.map(tmp,function(t) { return t.src; }));
+        } else if(_.isArray(options.include)) {
+            includes = grunt.file.expand(options.include);
+        }
+        console.log(includes);
         return;
 
         grunt.file.copy(src, dest, {

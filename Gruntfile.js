@@ -26,11 +26,14 @@ module.exports = function (grunt) {
                         "bower/angular/angular.js",
                         "bower/lodash/lodash.js"
                     ],
-                    code: [
-                        './www/src/**/*.js',
-                        '!**/*.Test.js',
-                        '!**/*_test.js'
-                    ],
+                    include: {
+                        cwd: './www',
+                        src: [
+                            'src/**/*.js',
+                            '!**/*.Test.js',
+                            '!**/*_test.js'
+                        ]
+                    },
                     css: [
                         "bower/normalize.css/normalize.css"
                     ],
