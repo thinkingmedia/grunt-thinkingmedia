@@ -1,22 +1,11 @@
 module.exports = function (grunt) {
 
     grunt.initConfig({
-        pkg: grunt.file.readJSON('package.json'),
-
         clean: {
             tests: [
                 'build',
                 './www/css/App',
                 './www/index.html'
-            ]
-        },
-
-        sources: {
-            'app.js': [
-                './www/src'
-            ],
-            'app.css': [
-                './css/App/App.css'
             ]
         },
 
@@ -80,45 +69,53 @@ module.exports = function (grunt) {
 
             // package source code into a temp file
             source: {
+                options: {
+                    minify: true
+                },
                 src: [
                     './www/src/**/*.js'
                 ],
-                minify: true,
                 dest: "./build/js/source.min.js"
             },
 
             // package vendors and source together
             packageJs: {
+                options: {
+                    clear: [
+                        './build/js/vendors.min.js',
+                        './build/js/source.min.js'
+                    ]
+                },
                 src: [
                     './build/js/vendors.min.js',
                     './build/js/source.min.js'
                 ],
-                dest: './build/js/app.min.js',
-                clear: [
-                    './build/js/vendors.min.js',
-                    './build/js/source.min.js'
-                ]
+                dest: './build/js/app.min.js'
             },
 
             // package CSS files into temp file
             css: {
+                options: {
+                    minify: true
+                },
                 src: [
                     './www/css/**/*.css'
                 ],
-                minify: true,
                 dest: './build/css/source.min.css'
             },
 
             // package vendor and source CSS together
             cassJs: {
+                options: {
+                    clear: [
+                        './build/css/source.min.css'
+                    ]
+                },
                 src: [
                     './www/bower/normalize.css/normalize.css',
                     './build/css/source.min.css'
                 ],
-                dest: './build/css/app.min.css',
-                clear: [
-                    './build/css/source.min.css'
-                ]
+                dest: './build/css/app.min.css'
             }
         },
 
