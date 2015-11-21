@@ -11,19 +11,6 @@ module.exports = function (grunt) {
             ]
         },
 
-        readme_generator: {
-            readme: {
-                options: {
-                    github_username: 'thinkingmedia',
-                    travis_branch: 'master'
-                },
-                order: {
-                    'overview.md': 'Overview',
-                    'usage.md': 'Usage'
-                }
-            }
-        },
-
         sources: {
             'app.js': [
                 './www/src'
@@ -146,6 +133,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
     grunt.loadNpmTasks('grunt-readme-generator');
 
-    grunt.registerTask('test', ['clean', 'dev', 'nodeunit']);
-    grunt.registerTask('default', ['clean', 'dev']);
+    grunt.registerTask('test', ['clean', 'index:dev', 'nodeunit']);
+    grunt.registerTask('default', ['test']);
 };
