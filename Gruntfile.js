@@ -133,6 +133,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-nodeunit');
     grunt.loadNpmTasks('grunt-readme-generator');
 
-    grunt.registerTask('test', ['clean', 'index:dev', 'nodeunit']);
+    grunt.registerTask('test', ['clean', 'index', 'nodeunit']);
     grunt.registerTask('default', ['test']);
 };
