@@ -1,5 +1,4 @@
 var grunt = require('grunt');
-var path = require('path');
 
 exports.index = {
     dev: function (test) {
