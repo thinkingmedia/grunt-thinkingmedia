@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 
     grunt.registerMultiTask('index', 'Generates an index.html file from a template file.', function () {
         var self = this;
-        var options = this.options({
+        var options = self.options({
             js: [],
             css: [],
             include: []

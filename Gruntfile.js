@@ -9,6 +9,15 @@ module.exports = function (grunt) {
             ]
         },
 
+        source: {
+            cwd: './www',
+            src: [
+                'src/**/*.js',
+                '!**/*.Test.js',
+                '!**/*_test.js'
+            ]
+        },
+
         index: {
             dev: {
                 options: {

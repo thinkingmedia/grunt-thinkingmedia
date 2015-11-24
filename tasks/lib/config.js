@@ -1,34 +1,52 @@
 var path = require('path');
 var _ = require('lodash');
-var fs = require('q-io/fs');
-var Q = require('q');
 
 exports.init = function (grunt) {
-
     return {
-        defaults: function (task) {
-            var options = task.options({
-                // directories used during build
-                www: './www',
-                css: './www/css',
-                src: './www/src',
-                build: './build'
-            });
 
-            var checkDirectories = _.map(['www', 'css', 'src'], function (key) {
-                options[key] = path.resolve(options[key]) + path.sep;
-                return fs.stat(options[key]).then(function (stat) {
-                    if (!stat.isDirectory()) {
-                        throw Error('not a directory');
-                    }
+        /**
+         * @param {Array|Object} options
+         * @returns {string[]}
+         */
+        toFiles: function(options) {
+            var files = [];
+            if (_.isObject(options) && _.isArray(options.include.src)) {
+                includes = grunt.file.expandMapping(options.include.src, '', options.include);
+                includes = _.map(includes, function (include) {
+                    return include.dest;
                 });
-            });
+            } else if (_.isArray(options.include)) {
+                includes = grunt.file.expand(options.include);
+            }
+        },
 
-            return Q.all(checkDirectories).then(function () {
-                return options;
-            }).catch(function (err) {
-                logger.error("Not A Directory: " + (err && err.path), err);
+        /**
+         * @param {string[]} files
+         * @returns {string[]}
+         */
+        toJS: function(files) {
+            return _.filter(files,function(file){
+                return _.endsWith(file, ".js");
             });
+        },
+
+        /**
+         * @param {string[]} files
+         * @returns {string[]}
+         */
+        toSASS: function(files) {
+            return _.filter(files,function(file){
+                return _.endsWith(file, ".scss") || _.endsWith(file, ".sass");
+            });
+        },
+
+        source: function() {
+            var s = grunt.config('source');
+            console.log(s);
+
+
+            var files = grunt.files.expand(s);
+            console.log(files);
         }
     }
 };

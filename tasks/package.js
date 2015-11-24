@@ -1,5 +1,8 @@
 var _ = require('lodash');
 
+/**
+ * @param {grunt} grunt
+ */
 module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-cssmin');
