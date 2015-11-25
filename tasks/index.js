@@ -1,9 +1,14 @@
 var _ = require('lodash');
 
 /**
- * @param {grunt} grunt
+ * @param {IGrunt} grunt
  */
 module.exports = function (grunt) {
+
+    /**
+     * @type {ThinkingMedia.Common}
+     */
+    var c = require('./lib/common').init(grunt);
 
     /**
      * @param {string} url

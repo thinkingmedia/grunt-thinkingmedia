@@ -1,18 +1,19 @@
 var _ = require('lodash');
 
 /**
- * @param {grunt} grunt
+ * @param {IGrunt} grunt
  */
 module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-    if (!grunt.task.exists('watch')) {
-        grunt.fail.fatal('Expected task "watch" to be created by grunt-contrib-watch');
-    }
-    grunt.task.renameTask('watch', 'watcher');
+    /**
+     * @type {ThinkingMedia.Common}
+     */
+    var c = require('./lib/common').init(grunt);
+    c.renameTask('watch','watcher');
 
-    grunt.registerMultiTask('watch', 'Watches for changes to the SASS files, and Javascript files.', function () {
+    grunt.task.registerMultiTask('watch', 'Watches for changes to the SASS files, and Javascript files.', function () {
         // javascript files to watch
         var js = _.filter(this.filesSrc,function(file){
             return _.endsWith(file, ".js");

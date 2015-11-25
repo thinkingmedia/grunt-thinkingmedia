@@ -1,14 +1,19 @@
 var _ = require('lodash');
 
 /**
- * @param {grunt} grunt
+ * @param {IGrunt} grunt
  */
 module.exports = function (grunt) {
+
+    /**
+     * @type {ThinkingMedia.Common}
+     */
+    var c = require('./lib/common').init(grunt);
 
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerMultiTask('package', 'Handles the creation of minified JS/CSS files', function () {
+    grunt.task.registerMultiTask('package', 'Handles the creation of minified JS/CSS files', function () {
         var self = this;
         var options = this.options({
             minify: false,
