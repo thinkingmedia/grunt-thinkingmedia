@@ -137,7 +137,12 @@ ThinkingMedia.Common = function (grunt) {
             return path.resolve(src);
         });
 
-        _.each([cnfg.webroot, cnfg.src], function (dir) {
+        _.each(_.flatten([
+            cnfg.webroot,
+            cnfg.webroot + path.sep + 'css',
+            cnfg.webroot + path.sep + 'js',
+            cnfg.src
+        ]), function (dir) {
             if (!grunt.file.isDir(dir)) {
                 grunt.fail.fatal("Directory does not exist: " + dir);
             }
