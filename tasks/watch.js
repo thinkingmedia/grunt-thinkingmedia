@@ -13,15 +13,18 @@ module.exports = function (grunt) {
     var c = require('./lib/common').init(grunt);
     c.renameTask('watch','watcher');
 
-    grunt.task.registerMultiTask('watch', 'Watches for changes to the SASS files, and Javascript files.', function () {
+    grunt.config('watch',{});
+
+    grunt.task.registerTask('watch', 'Watches for changes to the SASS files, and Javascript files.', function () {
+
         // javascript files to watch
-        var js = _.filter(this.filesSrc,function(file){
-            return _.endsWith(file, ".js");
+        var js = _.map(c.config().src,function(dir){
+            return dir + '/**/*.js';
         });
 
         // SASS files to watch
-        var sass = _.filter(this.filesSrc,function(file){
-            return _.endsWith(file, ".scss") || _.endsWith(file, ".sass");
+        var sass = _.map(c.config().src,function(dir){
+            return dir + '/**/*.s[ac]ss';
         });
 
         var watch = {
