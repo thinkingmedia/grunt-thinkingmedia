@@ -133,8 +133,14 @@ ThinkingMedia.Common = function (grunt) {
 
         cnfg.webroot = path.resolve(this.toString(cnfg.webroot));
         cnfg.build = path.resolve(this.toString(cnfg.build));
-        cnfg.src = _.map(this.toArray(cnfg.src),function(src) {
+        cnfg.src = _.map(this.toArray(cnfg.src), function (src) {
             return path.resolve(src);
+        });
+
+        _.each([cnfg.webroot, cnfg.src], function (dir) {
+            if (!grunt.file.isDir(dir)) {
+                grunt.fail.fatal("Directory does not exist: " + dir);
+            }
         });
 
         cnfg.files = _.filter(_.flatten(_.map(cnfg.src, function (dir) {
@@ -149,6 +155,14 @@ ThinkingMedia.Common = function (grunt) {
 
         cnfg.files = _.map(cnfg.files, function (file) {
             return path.resolve(file);
+        });
+
+        // logging
+        grunt.log.verbose.writeln('Common.config()');
+        grunt.log.verbose.writeln(cnfg.webroot);
+        grunt.log.verbose.writeln(cnfg.build);
+        _.each(cnfg.src, function (dir) {
+            grunt.log.verbose.writeln(dir);
         });
 
         this._config = cnfg;
