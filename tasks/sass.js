@@ -19,6 +19,7 @@ module.exports = function (grunt) {
         build: {}
     });
 
+    // @todo - should be a task that takes an argument.
     grunt.task.registerMultiTask('sass', '', function () {
 
         function rewrite(dest, src) {

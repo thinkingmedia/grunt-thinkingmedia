@@ -17,11 +17,6 @@ module.exports = function (grunt) {
 
     grunt.task.registerTask('watch', 'Watches for changes to the SASS files, and Javascript files.', function () {
 
-        // javascript files to watch
-        var js = _.map(c.config().src,function(dir){
-            return dir + '/**/*.js';
-        });
-
         // SASS files to watch
         var sass = _.map(c.config().src,function(dir){
             return dir + '/**/*.s[ac]ss';
@@ -38,8 +33,15 @@ module.exports = function (grunt) {
                 tasks: [
                     'sass:dev'
                 ]
-            },
-            js: {
+            }
+        };
+
+        if(grunt.config('index.dev')) {
+            // javascript files to watch
+            var js = _.map(c.config().src,function(dir){
+                return dir + '/**/*.js';
+            });
+            watch.js = {
                 options: {
                     atBegin: true,
                     event: ['added', 'deleted']
@@ -49,7 +51,7 @@ module.exports = function (grunt) {
                     'index:dev'
                 ]
             }
-        };
+        }
 
         grunt.config('watcher', watch);
         grunt.task.run(['watcher']);

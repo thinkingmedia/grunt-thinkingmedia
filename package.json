@@ -1,7 +1,7 @@
 {
   "name": "grunt-thinkingmedia",
   "description": "Build tools for working on AngularJS projects.",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "homepage": "https://github.com/mathew/grunt-thinkingmedia",
   "author": {
     "name": "ThinkingMedia",
