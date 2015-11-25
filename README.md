@@ -30,3 +30,11 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 ```js
 grunt.loadNpmTasks('grunt-thinkingmedia');
 ```
+
+You can start using this build tool with it's default settings by creating a Gruntfile that doesn't contain any config options.
+
+```js
+    module.exports = function (grunt) {
+        grunt.loadNpmTasks('grunt-thinkingmedia');
+    };
+```
