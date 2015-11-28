@@ -14,13 +14,7 @@ module.exports = function (grunt) {
     var c = require('./lib/common').init(grunt);
     c.renameTask('sass', 'sassy');
 
-    grunt.config('sass', {
-        dev: {},
-        build: {}
-    });
-
-    // @todo - should be a task that takes an argument.
-    grunt.task.registerMultiTask('sass', '', function () {
+    grunt.task.registerTask('sass', '', function (type) {
 
         function rewrite(dest, src) {
             dest = path.resolve(dest);
@@ -53,7 +47,7 @@ module.exports = function (grunt) {
             compass: true
         };
 
-        switch (this.target) {
+        switch (type) {
             case 'dev':
                 files.dest = c.config().webroot + path.sep + 'css';
                 options.lineNumbers = true;
@@ -63,6 +57,8 @@ module.exports = function (grunt) {
                 options.sourcemap = 'none';
                 options.style = 'compressed';
                 break;
+            default:
+                grunt.fail.fatal("Unsupported SASS build type:"+type);
         }
 
         grunt.config('sassy', {
