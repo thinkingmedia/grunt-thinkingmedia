@@ -3,6 +3,8 @@
 
 > Build tools for working on AngularJS projects.
 
+[![NPM](https://nodei.co/npm/grunt-thinkingmedia.png)](https://nodei.co/npm/grunt-thinkingmedia/)
+
 ## Jump to Section
 
 * [Overview](#overview)
