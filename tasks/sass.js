@@ -16,6 +16,9 @@ module.exports = function (grunt) {
 
     grunt.task.registerTask('sass', '', function (type) {
 
+        // default is dev
+        type = type || 'dev';
+
         function rewrite(dest, src) {
             dest = path.resolve(dest);
             src = path.resolve(src);

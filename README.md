@@ -27,16 +27,49 @@ If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out th
 npm install grunt-thinkingmedia --save-dev
 ```
 
-Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
+Once the plugin has been installed, it may be enabled inside your Gruntfile:
 
 ```js
 grunt.loadNpmTasks('grunt-thinkingmedia');
 ```
 
-You can start using this build tool with it's default settings by creating a Gruntfile that doesn't contain any config options.
+### SASS
 
-```js
-    module.exports = function (grunt) {
-        grunt.loadNpmTasks('grunt-thinkingmedia');
-    };
+To compile SASS files to CSS.
+
+```shell
+grunt sass
+grunt sass:dev
+```
+
+To compile SASS files to the build directory.
+
+```shell
+grunt sass:build
+```
+
+### Watching SASS and JS files.
+
+To watch fo changes to `*.sass` and `*.scss` files, and for adding/deleting `*.js` files.
+
+```shell
+grunt watch
+```
+
+The above will execute the `sass:dev` task, and the `index:dev` tasks when changes are made.
+
+### Version
+
+To output the current project version.
+
+```shell
+grunt version
+grunt ver
+```
+
+### To increment the current version.
+
+```shell
+grunt increment
+grunt inc
 ```
