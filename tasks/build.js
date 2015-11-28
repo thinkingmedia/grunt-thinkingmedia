@@ -26,7 +26,7 @@ module.exports = function (grunt) {
                     'build:dev',
                     'sass:build'
                 ];
-                if(grunt.config('package')) {
+                if (grunt.config('package')) {
                     tasks.push('package');
                 }
                 grunt.task.run(tasks);
@@ -35,4 +35,5 @@ module.exports = function (grunt) {
     });
 
     grunt.task.registerTask('dev', 'Compiles SASS and updates the index.html', ['build:dev']);
+    grunt.task.registerTask('default', ['build:prod']);
 };

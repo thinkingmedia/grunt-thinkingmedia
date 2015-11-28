@@ -9,6 +9,12 @@
 
 * [Overview](#overview)
 * [Usage](#usage)
+* [Config](#config)
+* [Task SASS](#task-sass)
+* [Task Watch](#task-watch)
+* [Task Version](#task-version)
+* [Task Increment](#task-increment)
+* [Task Build](#task-build)
 
 ## Overview
 [[Back To Top]](#jump-to-section)
@@ -33,7 +39,39 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile:
 grunt.loadNpmTasks('grunt-thinkingmedia');
 ```
 
-### SASS
+### Config
+[[Back To Top]](#jump-to-section)
+
+The majority of the tasks in this library can be controlled by setting the `config` grunt setting.
+
+Here are the default settings for `config`:
+
+```js
+    grunt.initConfig({
+        config: {
+            webroot: './www',
+            build: './build',
+            src: [
+                './www/src'
+            ]
+        }
+    });
+```
+
+#### config.webroot
+
+This is the location of the public web server folder.
+
+#### config.build
+
+This is where to place packaged files for deployment or distribution.
+
+#### config.src
+
+This is a list of directories that contain both SASS and JS files. These directories will be expanded by sub-directory order to control the loading sequence of files.
+
+### Task SASS
+[[Back To Top]](#jump-to-section)
 
 To compile SASS files to CSS.
 
@@ -48,7 +86,8 @@ To compile SASS files to the build directory.
 grunt sass:build
 ```
 
-### Watching SASS and JS files.
+### Task Watch
+[[Back To Top]](#jump-to-section)
 
 To watch fo changes to `*.sass` and `*.scss` files, and for adding/deleting `*.js` files.
 
@@ -58,7 +97,8 @@ grunt watch
 
 The above will execute the `sass:dev` task, and the `index:dev` tasks when changes are made.
 
-### Version
+### Task Version
+[[Back To Top]](#jump-to-section)
 
 To output the current project version.
 
@@ -67,6 +107,9 @@ grunt version
 grunt ver
 ```
 
+### Task Increment
+[[Back To Top]](#jump-to-section)
+
 To increment the current version.
 
 ```shell
@@ -74,7 +117,8 @@ grunt increment
 grunt inc
 ```
 
-### Development Build
+### Task Build
+[[Back To Top]](#jump-to-section)
 
 To perform all tasks related to the development environment.
 

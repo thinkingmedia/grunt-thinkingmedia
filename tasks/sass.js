@@ -19,6 +19,17 @@ module.exports = function (grunt) {
         // default is dev
         type = type || 'dev';
 
+        var files = {
+            expand: true,
+            src: c.toSASS(c.config().files),
+            dest: null,
+            rename: rewrite
+        };
+
+        var options = {
+            compass: true
+        };
+
         function rewrite(dest, src) {
             dest = path.resolve(dest);
             src = path.resolve(src);
@@ -31,24 +42,15 @@ module.exports = function (grunt) {
                 grunt.fail.fatal('Could not resolve source for: ' + src);
             }
 
-            var parse = path.parse(dest + src.substr(base.length));
-            var outfile = parse.dir + path.sep + parse.name + ".css";
+            //var parse = path.parse(dest + src.substr(base.length));
+            //var outfile = parse.dir + path.sep + parse.name + ".css";
+            var parse = path.parse(src);
+            var outfile = dest + path.sep + parse.name + (options.style === 'compressed' ? ".min.css" : ".css");
 
-            grunt.log.verbose.writeln("Rename: " + outfile);
+            grunt.log.writeln("SASS Output: " + outfile);
 
             return outfile;
         }
-
-        var files = {
-            expand: true,
-            src: c.toSASS(c.config().files),
-            dest: null,
-            rename: rewrite
-        };
-
-        var options = {
-            compass: true
-        };
 
         switch (type) {
 

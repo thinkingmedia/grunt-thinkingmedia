@@ -55,7 +55,8 @@ ThinkingMedia.Common = function (grunt) {
      */
     this.toSASS = function (files) {
         return _.filter(files, function (file) {
-            return _.endsWith(file, ".scss") || _.endsWith(file, ".sass");
+            var parse = path.parse(file);
+            return !_.startsWith(parse.name, "_") && (parse.ext === ".scss" || parse.ext === ".sass");
         });
     };
 
