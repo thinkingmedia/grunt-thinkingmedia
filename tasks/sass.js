@@ -51,15 +51,18 @@ module.exports = function (grunt) {
         };
 
         switch (type) {
+
             case 'dev':
                 files.dest = c.config().webroot + path.sep + 'css';
                 options.lineNumbers = true;
                 break;
+
             case 'build':
                 files.dest = c.config().build + path.sep + 'css';
                 options.sourcemap = 'none';
                 options.style = 'compressed';
                 break;
+
             default:
                 grunt.fail.fatal("Unsupported SASS build type:"+type);
         }

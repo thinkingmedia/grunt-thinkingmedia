@@ -67,9 +67,25 @@ grunt version
 grunt ver
 ```
 
-### To increment the current version.
+To increment the current version.
 
 ```shell
 grunt increment
 grunt inc
+```
+
+### Development Build
+
+To perform all tasks related to the development environment.
+
+```shell
+grunt dev
+grunt build:dev
+```
+
+To perform all tasks related to building the production environment or packaging.
+
+```shell
+grunt build
+grunt build:prod
 ```
