@@ -51,9 +51,11 @@ Here are the default settings for `config`:
         config: {
             webroot: './www',
             build: './build',
+            temp: './temp',
             src: [
                 './www/src'
-            ]
+            ],
+            templates: 'templates'
         }
     });
 ```
@@ -66,9 +68,17 @@ This is the location of the public web server folder.
 
 This is where to place packaged files for deployment or distribution.
 
+#### config.temp
+
+A temp folder that is used to process template files.
+
 #### config.src
 
 This is a list of directories that contain both SASS and JS files. These directories will be expanded by sub-directory order to control the loading sequence of files.
+
+#### config.templates
+
+This is the name of the AngularJS module used to load HTML templates.
 
 ### Task SASS
 [[Back To Top]](#jump-to-section)

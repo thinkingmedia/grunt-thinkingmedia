@@ -53,6 +53,16 @@ ThinkingMedia.Common = function (grunt) {
      * @param {string[]} files
      * @returns {string[]}
      */
+    this.toHTML = function (files) {
+        return _.filter(files, function (file) {
+            return _.endsWith(file, ".html");
+        });
+    };
+
+    /**
+     * @param {string[]} files
+     * @returns {string[]}
+     */
     this.toSASS = function (files) {
         return _.filter(files, function (file) {
             var parse = path.parse(file);
@@ -115,7 +125,7 @@ ThinkingMedia.Common = function (grunt) {
     };
 
     /**
-     * @returns {{webroot:string,build:string,src:string[]}}
+     * @returns {{name:string,webroot:string,build:string,temp:string,src:string[],files:string[],templates:string}}
      */
     this.config = function () {
 
@@ -124,19 +134,25 @@ ThinkingMedia.Common = function (grunt) {
         }
 
         var cnfg = _.merge({
+            name: 'app',
             webroot: './www',
             build: './build',
+            temp: './temp',
             src: [
                 './www/src'
             ],
+            templates: 'templates',
             files: []
         }, grunt.config('config'));
 
+        cnfg.app = this.toString(cnfg.app);
         cnfg.webroot = path.resolve(this.toString(cnfg.webroot));
         cnfg.build = path.resolve(this.toString(cnfg.build));
+        cnfg.temp = path.resolve(this.toString(cnfg.temp));
         cnfg.src = _.map(this.toArray(cnfg.src), function (src) {
             return path.resolve(src);
         });
+        cnfg.templates = this.toString(cnfg.templates);
 
         _.each(_.flatten([
             cnfg.webroot,
@@ -153,22 +169,27 @@ ThinkingMedia.Common = function (grunt) {
             if (grunt.file.isDir(dir)) {
                 return grunt.file.expand([
                     dir + '/**/*.js',
-                    dir + '/**/*.s[ac]ss'
+                    dir + '/**/*.s[ac]ss',
+                    dir + '/**/*.html'
                 ]);
             }
             return false;
         })));
 
-        cnfg.files = _.map(cnfg.files, function (file) {
-            return path.resolve(file);
-        });
+        cnfg.files = _.pluck(_.sortBy(_.map(cnfg.files, function (file) {
+            file = path.resolve(file);
+            return {
+                path: file,
+                sort: file.split(path.sep).length
+            }
+        }), 'sort'), 'path');
 
         // logging
-        grunt.log.verbose.writeln('Common.config()');
-        grunt.log.verbose.writeln(cnfg.webroot);
-        grunt.log.verbose.writeln(cnfg.build);
+        grunt.log.verbose.writeln('config:webroot=' + cnfg.webroot);
+        grunt.log.verbose.writeln('config:build=' + cnfg.build);
+        grunt.log.verbose.writeln('config:temp=' + cnfg.temp);
         _.each(cnfg.src, function (dir) {
-            grunt.log.verbose.writeln(dir);
+            grunt.log.verbose.writeln('config:src[]=' + dir);
         });
 
         this._config = cnfg;
