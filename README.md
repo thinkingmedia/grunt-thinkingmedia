@@ -1,4 +1,6 @@
 # grunt-thinkingmedia 
+
+[![Join the chat at https://gitter.im/thinkingmedia/grunt-thinkingmedia](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/thinkingmedia/grunt-thinkingmedia?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://secure.travis-ci.org/thinkingmedia/grunt-thinkingmedia.png?branch=master)](http://travis-ci.org/thinkingmedia/grunt-thinkingmedia)
 
 > Build tools for working on AngularJS projects.
