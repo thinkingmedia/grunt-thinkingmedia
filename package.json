@@ -2,7 +2,7 @@
   "name": "grunt-thinkingmedia",
   "description": "Build tools for working on AngularJS projects.",
   "version": "0.1.8",
-  "homepage": "https://github.com/mathew/grunt-thinkingmedia",
+  "homepage": "https://github.com/thinkingmedia/grunt-thinkingmedia",
   "author": {
     "name": "ThinkingMedia",
     "email": "support@thinkingmedia.ca",
@@ -10,22 +10,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/mathew/grunt-thinkingmedia.git"
+    "url": "git://github.com/thinkingmedia/grunt-thinkingmedia.git"
   },
   "bugs": {
-    "url": "https://github.com/mathew/grunt-thinkingmedia/issues"
+    "url": "https://github.com/thinkingmedia/grunt-thinkingmedia/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/mathew/grunt-thinkingmedia/blob/master/LICENSE-MIT"
+      "url": "https://github.com/thinkingmedia/grunt-thinkingmedia/blob/master/LICENSE"
     }
   ],
   "engines": {
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "postinstall": "bower install"
   },
   "devDependencies": {
     "dir-compare": "0.0.2",
@@ -45,7 +46,7 @@
   ],
   "files": [
     "tasks",
-    "LICENSE-MIT"
+    "LICENSE"
   ],
   "dependencies": {
     "grunt-bump": "^0.6.0",
