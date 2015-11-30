@@ -25,8 +25,7 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "grunt test",
-    "postinstall": "bower install"
+    "test": "grunt test"
   },
   "devDependencies": {
     "dir-compare": "0.0.2",
