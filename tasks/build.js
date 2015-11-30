@@ -27,40 +27,44 @@ module.exports = function (grunt) {
                 break;
             case 'prod':
 
-                // map source HTML to temp HTML paths.
-                var sources = c.toHTML(c.config().files);
-                var dests = _.map(sources, function (file) {
-                    return c.config().temp + file.substr(c.config().webroot.length);
-                });
+                if(c.config().templates !== false) {
+                    // map source HTML to temp HTML paths.
+                    var sources = c.toHTML(c.config().files);
+                    var dests = _.map(sources, function (file) {
+                        return c.config().temp + file.substr(c.config().webroot.length);
+                    });
 
-                grunt.config('htmlmin', {
-                    build: {
+                    grunt.config('htmlmin', {
+                        build: {
+                            options: {
+                                collapseWhitespace: true,
+                                removeComments: true
+                            },
+                            files: _.object(dests, sources)
+                        }
+                    });
+
+                    var templatesFile = c.config().temp + path.sep + c.config().templates + '.js';
+                    grunt.config('html2js', {
                         options: {
-                            collapseWhitespace: true,
-                            removeComments: true
+                            base: c.config().temp,
+                            module: c.config().templates,
+                            quoteChar: '\'',
+                            indentString: ''
                         },
-                        files: _.object(dests, sources)
-                    }
-                });
-
-                var templatesFile = c.config().temp + path.sep + c.config().templates + '.js';
-                grunt.config('html2js', {
-                    options: {
-                        base: c.config().temp,
-                        module: c.config().templates,
-                        quoteChar: '\'',
-                        indentString: ''
-                    },
-                    prod: {
-                        src: c.config().temp + '/**/*.html',
-                        dest: templatesFile
-                    }
-                });
+                        prod: {
+                            src: c.config().temp + '/**/*.html',
+                            dest: templatesFile
+                        }
+                    });
+                }
 
                 var jsTarget = c.config().build + path.sep + 'js' + path.sep + c.config().name + '.min.js';
                 var files = {};
                 files[jsTarget] = c.toJS(c.config().files);
-                files[jsTarget].push(templatesFile);
+                if(c.config().templates !== false) {
+                    files[jsTarget].push(templatesFile);
+                }
 
                 grunt.config('uglify.build', {
                     screwIE8: true,
@@ -68,12 +72,16 @@ module.exports = function (grunt) {
                 });
 
                 var tasks = [
-                    'build:dev',
-                    'sass:build',
-                    'htmlmin',
-                    'html2js',
-                    'uglify:build'
+                    'build:dev'
                 ];
+                if (grunt.file.exists(c.config().webroot + path.sep + 'css')) {
+                    tasks.push('sass:build');
+                }
+                if(c.config().templates !== false) {
+                    tasks.push('htmlmin');
+                    tasks.push('html2js');
+                }
+                tasks.push('uglify:build');
                 if (grunt.config('package')) {
                     tasks.push('package');
                 }

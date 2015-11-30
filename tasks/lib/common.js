@@ -125,7 +125,15 @@ ThinkingMedia.Common = function (grunt) {
     };
 
     /**
-     * @returns {{name:string,webroot:string,build:string,temp:string,src:string[],files:string[],templates:string}}
+     * @returns {{
+     *  name:string,
+     *  webroot:string,
+     *  build:string,
+     *  temp:string,
+     *  src:string[],
+     *  files:string[],
+     *  templates:string|boolean
+     *  }}
      */
     this.config = function () {
 
@@ -156,8 +164,6 @@ ThinkingMedia.Common = function (grunt) {
 
         _.each(_.flatten([
             cnfg.webroot,
-            cnfg.webroot + path.sep + 'css',
-            cnfg.webroot + path.sep + 'js',
             cnfg.src
         ]), function (dir) {
             if (!grunt.file.isDir(dir)) {
