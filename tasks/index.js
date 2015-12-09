@@ -37,7 +37,7 @@ module.exports = function (grunt) {
         return options.version || '0';
     }
 
-    grunt.registerMultiTask('index', 'Generates an index.html file from a template file.', function () {
+    grunt.task.registerMultiTask('index', 'Generates an index.html file from a template file.', function () {
         var self = this;
         var options = self.options({
             js: [],
@@ -67,15 +67,14 @@ module.exports = function (grunt) {
         }
         dest = _.isArray(dest) ? dest[0] : dest;
 
-        var includes = [];
-        if (_.isObject(options.include) && _.isArray(options.include.src)) {
-            includes = grunt.file.expandMapping(options.include.src, '', options.include);
-            includes = _.map(includes, function (include) {
-                return include.dest;
+        options.include = c.toArray(options.include);
+
+        var includes = _.flatten(_.map(options.include, function (include) {
+            var files = grunt.file.expandMapping(include.src, '', include);
+            return _.map(files, function (file) {
+                return (c.toString(include.prefix) || '') + file.dest;
             });
-        } else if (_.isArray(options.include)) {
-            includes = grunt.file.expand(options.include);
-        }
+        }));
 
         // order by directory depth
         includes = _.pluck(_.sortBy(_.map(includes, function (include) {
