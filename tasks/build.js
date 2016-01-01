@@ -27,7 +27,7 @@ module.exports = function (grunt) {
                 break;
             case 'prod':
 
-                if(c.config().templates !== false) {
+                if (c.config().templates !== false) {
                     // map source HTML to temp HTML paths.
                     var sources = c.toHTML(c.config().files);
                     var dests = _.map(sources, function (file) {
@@ -62,7 +62,7 @@ module.exports = function (grunt) {
                 var jsTarget = c.config().build + path.sep + 'js' + path.sep + c.config().name + '.min.js';
                 var files = {};
                 files[jsTarget] = c.toJS(c.config().files);
-                if(c.config().templates !== false) {
+                if (c.config().templates !== false) {
                     files[jsTarget].push(templatesFile);
                 }
 
@@ -77,7 +77,7 @@ module.exports = function (grunt) {
                 if (grunt.file.exists(c.config().webroot + path.sep + 'css')) {
                     tasks.push('sass:build');
                 }
-                if(c.config().templates !== false) {
+                if (c.config().templates !== false) {
                     tasks.push('htmlmin');
                     tasks.push('html2js');
                 }
@@ -91,5 +91,8 @@ module.exports = function (grunt) {
     });
 
     grunt.task.registerTask('dev', 'Compiles SASS and updates the index.html', ['build:dev']);
-    grunt.task.registerTask('default', ['build:prod']);
+
+    if (!grunt.config('default')) {
+        grunt.task.registerTask('default', ['build:prod']);
+    }
 };

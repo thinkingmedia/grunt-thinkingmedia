@@ -128,6 +128,7 @@ ThinkingMedia.Common = function (grunt) {
      * @returns {{
      *  name:string,
      *  webroot:string,
+     *  test:string,
      *  build:string,
      *  temp:string,
      *  src:string[],
@@ -144,6 +145,7 @@ ThinkingMedia.Common = function (grunt) {
         var cnfg = _.merge({
             name: 'app',
             webroot: './www',
+            test: './test',
             build: './build',
             temp: './temp',
             src: [
@@ -154,7 +156,10 @@ ThinkingMedia.Common = function (grunt) {
         }, grunt.config('config'));
 
         cnfg.app = this.toString(cnfg.app);
-        cnfg.webroot = path.resolve(this.toString(cnfg.webroot));
+        if(cnfg.webroot !== false) {
+            cnfg.webroot = path.resolve(this.toString(cnfg.webroot));
+        }
+        cnfg.test = path.resolve(this.toString(cnfg.test));
         cnfg.build = path.resolve(this.toString(cnfg.build));
         cnfg.temp = path.resolve(this.toString(cnfg.temp));
         cnfg.src = _.map(this.toArray(cnfg.src), function (src) {
@@ -166,7 +171,7 @@ ThinkingMedia.Common = function (grunt) {
             cnfg.webroot,
             cnfg.src
         ]), function (dir) {
-            if (!grunt.file.isDir(dir)) {
+            if (dir && !grunt.file.isDir(dir)) {
                 grunt.fail.fatal("Directory does not exist: " + dir);
             }
         });
@@ -191,7 +196,10 @@ ThinkingMedia.Common = function (grunt) {
         }), 'sort'), 'path');
 
         // logging
-        grunt.log.verbose.writeln('config:webroot=' + cnfg.webroot);
+        if(cnfg !== false) {
+            grunt.log.verbose.writeln('config:webroot=' + cnfg.webroot);
+        }
+        grunt.log.verbose.writeln('config:test=' + cnfg.test);
         grunt.log.verbose.writeln('config:build=' + cnfg.build);
         grunt.log.verbose.writeln('config:temp=' + cnfg.temp);
         _.each(cnfg.src, function (dir) {
