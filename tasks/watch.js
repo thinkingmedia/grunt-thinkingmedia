@@ -5,12 +5,12 @@ var _ = require('lodash');
  */
 module.exports = function (grunt) {
 
-    grunt.loadNpmTasks('grunt-contrib-watch');
-
     /**
      * @type {ThinkingMedia.Common}
      */
     var c = require('./lib/common').init(grunt);
+
+    c.load('grunt-contrib-watch');
     c.renameTask('watch','watcher');
 
     grunt.config('watch',{});

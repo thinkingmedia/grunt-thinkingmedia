@@ -156,7 +156,7 @@ ThinkingMedia.Common = function (grunt) {
         }, grunt.config('config'));
 
         cnfg.app = this.toString(cnfg.app);
-        if(cnfg.webroot !== false) {
+        if (cnfg.webroot !== false) {
             cnfg.webroot = path.resolve(this.toString(cnfg.webroot));
         }
         cnfg.test = path.resolve(this.toString(cnfg.test));
@@ -196,7 +196,7 @@ ThinkingMedia.Common = function (grunt) {
         }), 'sort'), 'path');
 
         // logging
-        if(cnfg !== false) {
+        if (cnfg !== false) {
             grunt.log.verbose.writeln('config:webroot=' + cnfg.webroot);
         }
         grunt.log.verbose.writeln('config:test=' + cnfg.test);
@@ -268,6 +268,27 @@ ThinkingMedia.Common = function (grunt) {
             return;
         }
         grunt.task.renameTask(oldName, newName);
+    };
+
+    /**
+     * Loads grunt modules relative to this plugin and not the Gruntfile.js that is using this plugin.
+     *
+     * @param {string} name
+     */
+    this.load = function (name) {
+        var root = path.resolve('node_modules');
+        var depth = 0;
+        while (depth < 10) {
+            var tasksDir = path.join(root, name, 'tasks');
+            if (grunt.file.exists(tasksDir)) {
+                grunt.loadNpmTasks(name);
+                return;
+            } else {
+                name = '../../node_modules/' + name;
+                depth++;
+            }
+        }
+        grunt.log.error('Parent Npm module "' + name + '" not found. Is it installed?');
     }
 }
 ;

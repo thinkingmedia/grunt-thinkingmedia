@@ -6,12 +6,12 @@ var _ = require('lodash');
  */
 module.exports = function (grunt) {
 
-    grunt.loadNpmTasks('grunt-contrib-sass');
-
     /**
      * @type {ThinkingMedia.Common}
      */
     var c = require('./lib/common').init(grunt);
+
+    c.load('grunt-contrib-sass');
     c.renameTask('sass', 'sassy');
 
     grunt.task.registerTask('sass', '', function (type) {

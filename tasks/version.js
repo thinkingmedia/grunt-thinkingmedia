@@ -6,12 +6,12 @@ var _ = require('lodash');
  */
 module.exports = function (grunt) {
 
-    grunt.loadNpmTasks('grunt-bump');
-
     /**
      * @type {ThinkingMedia.Common}
      */
     var c = require('./lib/common').init(grunt);
+
+    c.load('grunt-bump');
 
     grunt.task.registerTask('increment', 'Handles the releasing of a new version', function () {
 

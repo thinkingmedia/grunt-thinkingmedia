@@ -13,9 +13,9 @@ function Module(grunt) {
     var c = require('./lib/common').init(grunt);
 
     // @todo check if mocha is installed via package.json
-    grunt.loadNpmTasks('grunt-mocha-test');
-    grunt.loadNpmTasks('grunt-mocha-istanbul');
-    grunt.loadNpmTasks('grunt-open');
+    c.load('grunt-mocha-test');
+    c.load('grunt-mocha-istanbul');
+    c.load('grunt-open');
 
     grunt.task.registerTask('test', 'Handles executing the tests', function () {
         var config = {

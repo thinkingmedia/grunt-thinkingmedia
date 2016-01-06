@@ -6,14 +6,14 @@ var _ = require('lodash');
  */
 module.exports = function (grunt) {
 
-    grunt.loadNpmTasks('grunt-contrib-htmlmin');
-    grunt.loadNpmTasks('grunt-html2js');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-
     /**
      * @type {ThinkingMedia.Common}
      */
     var c = require('./lib/common').init(grunt);
+
+    c.load('grunt-contrib-htmlmin');
+    c.load('grunt-html2js');
+    c.load('grunt-contrib-uglify');
 
     grunt.task.registerTask('build', 'Performs all tasks to compile the target environment.', function (type) {
         type = type || 'prod';

@@ -10,8 +10,8 @@ module.exports = function (grunt) {
      */
     var c = require('./lib/common').init(grunt);
 
-    grunt.loadNpmTasks('grunt-contrib-cssmin');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
+    c.load('grunt-contrib-cssmin');
+    c.load('grunt-contrib-uglify');
 
     grunt.task.registerMultiTask('package', 'Handles the creation of minified JS/CSS files', function () {
         var self = this;
