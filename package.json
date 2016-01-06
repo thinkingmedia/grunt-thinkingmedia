@@ -1,7 +1,7 @@
 {
   "name": "grunt-thinkingmedia",
   "description": "Build tools for working on AngularJS projects.",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "homepage": "https://github.com/thinkingmedia/grunt-thinkingmedia",
   "author": {
     "name": "ThinkingMedia",
@@ -15,40 +15,38 @@
   "bugs": {
     "url": "https://github.com/thinkingmedia/grunt-thinkingmedia/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/thinkingmedia/grunt-thinkingmedia/blob/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "engines": {
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "coverage": "grunt coverage"
   },
   "devDependencies": {
-    "dir-compare": "0.0.2",
+    "dir-compare": "^0.0.2",
     "grunt": "^0.4.5",
     "grunt-cli": "^0.1.13",
-    "grunt-contrib-clean": "^0.5.0",
-    "grunt-contrib-nodeunit": "^0.3.3",
+    "grunt-contrib-clean": "^0.7.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
     "lodash": "^3.10.1",
     "q": "^1.4.1",
     "q-io": "^1.13.1"
   },
   "peerDependencies": {
-    "grunt": "~0.4.5"
+    "grunt": "^0.4.5"
   },
   "keywords": [
-    "gruntplugin"
+    "gruntplugin",
+    "build",
+    "automation"
   ],
   "files": [
     "tasks",
     "LICENSE"
   ],
   "dependencies": {
-    "grunt-bump": "^0.6.0",
+    "grunt-bump": "^0.7.0",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-cssmin": "^0.14.0",
     "grunt-contrib-htmlmin": "^0.6.0",
