@@ -277,12 +277,10 @@ ThinkingMedia.Common = function (grunt) {
      */
     this.load = function (name) {
         var root = path.resolve('node_modules');
-        console.log(root);
         var depth = 0;
         while (depth < 10) {
             var tasksDir = path.join(root, name, 'tasks');
             if (grunt.file.exists(tasksDir)) {
-                console.log(tasksDir);
                 grunt.loadNpmTasks(name);
                 return;
             } else {
