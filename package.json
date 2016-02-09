@@ -1,7 +1,7 @@
 {
   "name": "grunt-thinkingmedia",
   "description": "Build tools for working on AngularJS projects.",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "homepage": "https://github.com/thinkingmedia/grunt-thinkingmedia",
   "author": {
     "name": "ThinkingMedia",
@@ -46,7 +46,8 @@
     "grunt-mocha-test": "^0.12.7",
     "grunt-open": "^0.2.3",
     "mocha": "^2.3.4",
-    "istanbul": "^0.4.1"
+    "istanbul": "^0.4.1",
+    "lodash": "^3.10.1"
   },
   "devDependencies": {
     "dir-compare": "^0.0.2",
