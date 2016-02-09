@@ -187,7 +187,7 @@ ThinkingMedia.Common = function (grunt) {
             return false;
         })));
 
-        cnfg.files = _.pluck(_.sortBy(_.map(cnfg.files, function (file) {
+        cnfg.files = _.map(_.sortBy(_.map(cnfg.files, function (file) {
             file = path.resolve(file);
             return {
                 path: file,

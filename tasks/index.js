@@ -77,7 +77,7 @@ module.exports = function (grunt) {
         }));
 
         // order by directory depth
-        includes = _.pluck(_.sortBy(_.map(includes, function (include) {
+        includes = _.map(_.sortBy(_.map(includes, function (include) {
             var str = include.replace(/\\/, '/');
             return {
                 path: str,
