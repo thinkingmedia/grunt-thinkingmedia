@@ -40,7 +40,7 @@ module.exports = function (grunt) {
                                 collapseWhitespace: true,
                                 removeComments: true
                             },
-                            files: _.object(dests, sources)
+                            files: _.zipObject(dests, sources)
                         }
                     });
 
