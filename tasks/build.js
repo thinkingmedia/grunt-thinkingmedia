@@ -15,7 +15,10 @@ module.exports = function (grunt) {
     c.load('grunt-html2js');
     c.load('grunt-contrib-uglify');
 
-    grunt.task.registerTask('build', 'Performs all tasks to compile the target environment.', function (type) {
+    c.help('build', 'Performs all tasks to compile the target environment.');
+    c.help('dev', 'Alias to perform build:dev for development assets only.');
+
+    grunt.task.registerTask('build', c.getHelp('build'), function (type) {
         type = type || 'prod';
 
         switch (type) {
@@ -90,7 +93,8 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.task.registerTask('dev', 'Compiles SASS and updates the index.html', ['build:dev']);
+    c.help('desc', 'Compiles SASS and updates the index.html');
+    grunt.task.registerTask('dev', c.getHelp('dev'), ['build:dev']);
 
     if (!grunt.config('default')) {
         grunt.task.registerTask('default', ['build:prod']);

@@ -14,7 +14,9 @@ module.exports = function (grunt) {
     c.load('grunt-contrib-sass');
     c.renameTask('sass', 'sassy');
 
-    grunt.task.registerTask('sass', '', function (type) {
+    c.help('sass','Compiles the SASS files into CSS files.');
+
+    grunt.task.registerTask('sass', c.getHelp('sass'), function (type) {
 
         // default is dev
         type = type || 'dev';

@@ -11,14 +11,16 @@ module.exports = function (grunt) {
     var c = require('./lib/common').init(grunt);
 
     c.load('grunt-contrib-watch');
-    c.renameTask('watch','watcher');
+    c.renameTask('watch', 'watcher');
 
-    grunt.config('watch',{});
+    c.help('watch', 'Watches for changes to the SASS files, and Javascript files.');
 
-    grunt.task.registerTask('watch', 'Watches for changes to the SASS files, and Javascript files.', function () {
+    grunt.config('watch', {});
+
+    grunt.task.registerTask('watch', c.getHelp('watch'), function () {
 
         // SASS files to watch
-        var sass = _.map(c.config().src,function(dir){
+        var sass = _.map(c.config().src, function (dir) {
             return dir + '/**/*.s[ac]ss';
         });
 
@@ -36,9 +38,9 @@ module.exports = function (grunt) {
             }
         };
 
-        if(grunt.config('index.dev')) {
+        if (grunt.config('index.dev')) {
             // javascript files to watch
-            var js = _.map(c.config().src,function(dir){
+            var js = _.map(c.config().src, function (dir) {
                 return dir + '/**/*.js';
             });
             watch.js = {

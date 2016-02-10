@@ -1,6 +1,8 @@
 var path = require('path');
 var _ = require('lodash');
 
+var instance;
+
 /**
  * @name {ThinkingMedia}
  * @constructor
@@ -14,6 +16,13 @@ function ThinkingMedia() {
  * @constructor
  */
 ThinkingMedia.Common = function (grunt) {
+
+    /**
+     * A collection of descriptions used to print help.
+     *
+     * @type {Object.<string,Object>}
+     */
+    var helpItems = {};
 
     /**
      * @param {Array|Object} options
@@ -289,6 +298,51 @@ ThinkingMedia.Common = function (grunt) {
             }
         }
         grunt.log.error('Parent Npm module "' + name + '" not found. Is it installed?');
+    };
+
+    /**
+     * Registers a help description for a task.
+     *
+     * @param {string} task
+     * @param {string} desc
+     */
+    this.help = function (task, desc) {
+        if(helpItems.hasOwnProperty(task)) {
+            grunt.log.error('Help already registered for: ' + task);
+            return;
+        }
+        helpItems[task] = {
+            name: task,
+            desc: desc,
+            aliases: []
+        };
+    };
+
+    /**
+     * @param {string} task
+     * @param {string|string[]} aliases
+     */
+    this.alias = function (task, aliases) {
+        if(!helpItems.hasOwnProperty(task)) {
+            grunt.log.error('Can not register help alias for unknown task: ' + task);
+            return;
+        }
+        helpItems[task].aliases = _.flatten([aliases]);
+    };
+
+    /**
+     * @param {string=} task
+     * @returns {string|Object.<string,Object>}
+     */
+    this.getHelp = function (task) {
+        if(!task) {
+            return helpItems;
+        }
+        if(!helpItems.hasOwnProperty(task)) {
+            grunt.log.error('Can not find help for: ' + task);
+            return '';
+        }
+        return helpItems[task].desc;
     }
 }
 ;
@@ -298,5 +352,6 @@ ThinkingMedia.Common = function (grunt) {
  * @returns {ThinkingMedia.Common}
  */
 exports.init = function (grunt) {
-    return new ThinkingMedia.Common(grunt);
+    instance = instance ? instance : new ThinkingMedia.Common(grunt);
+    return instance;
 };

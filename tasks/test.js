@@ -17,7 +17,10 @@ function Module(grunt) {
     c.load('grunt-mocha-istanbul');
     c.load('grunt-open');
 
-    grunt.task.registerTask('test', 'Handles executing the tests', function () {
+    c.help('test', 'Handles executing the tests.');
+    c.help('coverage', 'Generates a test coverage report.');
+
+    grunt.task.registerTask('test', c.getHelp('test'), function () {
         var config = {
             test: {
                 options: {
@@ -39,7 +42,7 @@ function Module(grunt) {
         grunt.task.run(['mochaTest']);
     });
 
-    grunt.task.registerTask('coverage', 'Generates a test coverage report', function (arg) {
+    grunt.task.registerTask('coverage', c.getHelp('coverage'), function (arg) {
         var config = {
             coverage: {
                 options: {},

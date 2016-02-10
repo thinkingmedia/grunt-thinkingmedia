@@ -13,7 +13,12 @@ module.exports = function (grunt) {
 
     c.load('grunt-bump');
 
-    grunt.task.registerTask('increment', 'Handles the releasing of a new version', function () {
+    c.help('increment', 'Handles the releasing of a new version');
+    c.alias('increment', 'inv');
+    c.help('version', 'Shows the current version in package.json');
+    c.alias('version', 'ver');
+
+    grunt.task.registerTask('increment', c.getHelp('increment'), function () {
 
         var files = ['package.json'];
 
@@ -34,7 +39,7 @@ module.exports = function (grunt) {
     });
     grunt.task.registerTask('inc', ['increment']);
 
-    grunt.task.registerTask('version', 'Shows the current version in package.json', function () {
+    grunt.task.registerTask('version', c.getHelp('version'), function () {
         var pkg = grunt.file.readJSON('package.json');
         c.log('Version: ' + pkg.version);
     });

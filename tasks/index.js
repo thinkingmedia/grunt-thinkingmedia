@@ -10,6 +10,8 @@ module.exports = function (grunt) {
      */
     var c = require('./lib/common').init(grunt);
 
+    c.help('index', 'Generates an index.html file from a template file.');
+
     /**
      * @param {string} url
      * @returns {string}
@@ -37,7 +39,7 @@ module.exports = function (grunt) {
         return options.version || '0';
     }
 
-    grunt.task.registerMultiTask('index', 'Generates an index.html file from a template file.', function () {
+    grunt.task.registerMultiTask('index', c.getHelp('index'), function () {
         var self = this;
         var options = self.options({
             js: [],

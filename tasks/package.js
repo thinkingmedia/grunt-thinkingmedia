@@ -13,7 +13,9 @@ module.exports = function (grunt) {
     c.load('grunt-contrib-cssmin');
     c.load('grunt-contrib-uglify');
 
-    grunt.task.registerMultiTask('package', 'Handles the creation of minified JS/CSS files', function () {
+    c.help('package', 'Handles the creation of minified JS/CSS files');
+
+    grunt.task.registerMultiTask('package', c.getHelp('package'), function () {
         var self = this;
         var options = this.options({
             minify: false,
