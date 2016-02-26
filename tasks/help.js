@@ -11,7 +11,9 @@ module.exports = function (grunt) {
      */
     var c = require('./lib/common').init(grunt);
 
-    grunt.task.registerTask('help', 'Displays help for using grunt-thinkingmedia', function () {
+    c.help('help', 'Displays a list of actions managed by grunt-thinkingmedia.');
+
+    grunt.task.registerTask('help', c.getHelp('help'), function () {
 
         grunt.log.writeln('');
         grunt.log.writeln('This help pertains to grunt-thinkingmedia only.');
@@ -24,7 +26,7 @@ module.exports = function (grunt) {
         }));
 
         _.each(c.getHelp(), function (item) {
-            grunt.log.writeln("  " + _.padEnd(item.name, len+1) + item.desc);
+            grunt.log.writeln("  " + _.padEnd(item.name, len + 1) + item.desc);
         });
     });
 };

@@ -4,7 +4,7 @@ var _ = require('lodash');
 var instance;
 
 /**
- * @name {ThinkingMedia}
+ * @name ThinkingMedia
  * @constructor
  */
 function ThinkingMedia() {
@@ -280,24 +280,43 @@ ThinkingMedia.Common = function (grunt) {
     };
 
     /**
+     * Checks if a grunt module can be loaded.
+     *
+     * @param {string} name
+     * @param {number=} maxDepth
+     * @returns {string|null}
+     */
+    this.findModule = function (name, maxDepth) {
+        maxDepth = maxDepth || 10;
+        var root = path.resolve('node_modules');
+        var fileName = name;
+        var depth = 0;
+        while (depth < maxDepth) {
+            var tasksDir = path.join(root, fileName, 'tasks');
+            if (grunt.file.exists(tasksDir)) {
+                return fileName;
+            }
+            fileName = '../../node_modules/' + fileName;
+            depth++;
+        }
+        return null;
+    };
+
+    /**
      * Loads grunt modules relative to this plugin and not the Gruntfile.js that is using this plugin.
      *
      * @param {string} name
+     * @param {number=} maxDepth
+     * @returns {boolean}
      */
-    this.load = function (name) {
-        var root = path.resolve('node_modules');
-        var depth = 0;
-        while (depth < 10) {
-            var tasksDir = path.join(root, name, 'tasks');
-            if (grunt.file.exists(tasksDir)) {
-                grunt.loadNpmTasks(name);
-                return;
-            } else {
-                name = '../../node_modules/' + name;
-                depth++;
-            }
+    this.load = function (name, maxDepth) {
+        var fileName = this.findModule(name, maxDepth);
+        if (fileName) {
+            grunt.loadNpmTasks(fileName);
+            return true;
         }
-        grunt.log.error('Parent Npm module "' + name + '" not found. Is it installed?');
+        grunt.log.error('Npm module "' + name + '" not found. Is it installed?');
+        return false;
     };
 
     /**
@@ -307,7 +326,7 @@ ThinkingMedia.Common = function (grunt) {
      * @param {string} desc
      */
     this.help = function (task, desc) {
-        if(helpItems.hasOwnProperty(task)) {
+        if (helpItems.hasOwnProperty(task)) {
             grunt.log.error('Help already registered for: ' + task);
             return;
         }
@@ -323,7 +342,7 @@ ThinkingMedia.Common = function (grunt) {
      * @param {string|string[]} aliases
      */
     this.alias = function (task, aliases) {
-        if(!helpItems.hasOwnProperty(task)) {
+        if (!helpItems.hasOwnProperty(task)) {
             grunt.log.error('Can not register help alias for unknown task: ' + task);
             return;
         }
@@ -335,10 +354,10 @@ ThinkingMedia.Common = function (grunt) {
      * @returns {string|Object.<string,Object>}
      */
     this.getHelp = function (task) {
-        if(!task) {
-            return helpItems;
+        if (!task) {
+            return _.sortBy(_.values(helpItems), 'name');
         }
-        if(!helpItems.hasOwnProperty(task)) {
+        if (!helpItems.hasOwnProperty(task)) {
             grunt.log.error('Can not find help for: ' + task);
             return '';
         }

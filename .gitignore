@@ -7,3 +7,4 @@ tmp
 /build
 /www/bower
 .idea
+typings
