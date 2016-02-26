@@ -1,7 +1,7 @@
 {
   "name": "grunt-thinkingmedia",
   "description": "Build tools for working on AngularJS projects.",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "homepage": "https://github.com/thinkingmedia/grunt-thinkingmedia",
   "author": {
     "name": "ThinkingMedia",
@@ -33,7 +33,6 @@
     "LICENSE"
   ],
   "peerDependencies": {
-    "grunt": "^0.4.5",
     "grunt-bump": "^0.7.0",
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-cssmin": "^0.14.0",
@@ -44,6 +43,7 @@
     "grunt-html2js": "^0.3.5",
     "grunt-mocha-istanbul": "^3.0.1",
     "grunt-mocha-test": "^0.12.7",
+    "grunt-ngdocs": "^0.2.9",
     "grunt-open": "^0.2.3",
     "mocha": "^2.3.4",
     "istanbul": "^0.4.1",
