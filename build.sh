@@ -40,6 +40,8 @@ try node --version
 try npm --version
 try bower --version
 try grunt --version
+try ruby -v
+try gem -v
 try sass --version
 try compass -v
 try git --version
