@@ -33,7 +33,8 @@ module.exports = function (grunt) {
                 },
                 files: sass,
                 tasks: [
-                    'sass:dev'
+                    'sass:dev',
+                    'beep'
                 ]
             }
         };
@@ -43,16 +44,17 @@ module.exports = function (grunt) {
             var js = _.map(c.config().src, function (dir) {
                 return dir + '/**/*.js';
             });
-            watch.js = {
+            watch['js'] = {
                 options: {
                     atBegin: true,
                     event: ['added', 'deleted']
                 },
                 files: js,
                 tasks: [
-                    'index:dev'
+                    'index:dev',
+                    'beep'
                 ]
-            }
+            };
         }
 
         grunt.config('watcher', watch);
