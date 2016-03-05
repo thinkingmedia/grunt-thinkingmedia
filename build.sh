@@ -42,7 +42,7 @@ try() {
 #
 # Arguments
 #
-while getopts ":u:a:" opt; do
+while getopts ":u:a:i:p:" opt; do
     case ${opt} in
         u)
             DEPLOY_USER=$OPTARG
@@ -51,6 +51,14 @@ while getopts ":u:a:" opt; do
         a)
             DEPLOY_ADDRESS=$OPTARG
             say "Address: ${DEPLOY_ADDRESS}"
+            ;;
+        i)
+            DEPLOY_KEY=$OPTARG
+            say "Private key file: ${DEPLOY_KEY}"
+            ;;
+        p)
+            DEPLOY_PATH=$OPTARG
+            say "Remote path: ${DEPLOY_PATH}"
             ;;
         \?)
             die "invalid option: -$OPTARG"
@@ -73,6 +81,14 @@ if [ -f deploy.sh ]; then
 
     if [ "${DEPLOY_ADDRESS}" == "" ]; then
         die "Address for remote server not set."
+    fi
+
+    if [ "${DEPLOY_KEY}" == "" ]; then
+        die "SSH private key is required."
+    fi
+
+    if [ "${DEPLOY_PATH}" == "" ]; then
+        die "Path required for remote server."
     fi
 fi
 
@@ -160,5 +176,5 @@ try rm -fr build
 #
 if [ -f deploy.sh ]; then
     say "Copying to other server"
-    try scp ${FILENAME} ${DEPLOY_USER}@${DEPLOY_ADDRESS}:${FILENAME}
+    try scp ${FILENAME} ${DEPLOY_USER}@${DEPLOY_ADDRESS}:${DEPLOY_PATH}/${FILENAME}
 fi
