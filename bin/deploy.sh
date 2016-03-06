@@ -90,12 +90,10 @@ if [ -f deploy.sh ]; then
     try scp -i ${DEPLOY_KEY} ${FILENAME}.tar.gz ${DEPLOY_USER}@${DEPLOY_ADDRESS}:${DEPLOY_PATH}/${FILENAME}.tar.gz
 
     say "CONNECT::SSH -> ${DEPLOY_USER}@${DEPLOY_ADDRESS}"
-
-    #try ssh -i ${DEPLOY_KEY} ${DEPLOY_USER}@${DEPLOY_ADDRESS} "tar -xf ${FILENAME}.tar.gz -C ${FILENAME} && cd ${FILENAME} && sudo ./deploy.sh"
     try ssh -i ${DEPLOY_KEY} ${DEPLOY_USER}@${DEPLOY_ADDRESS} "mkdir ${DEPLOY_PATH}/${FILENAME}"
     try ssh -i ${DEPLOY_KEY} ${DEPLOY_USER}@${DEPLOY_ADDRESS} "tar -xf ${DEPLOY_PATH}/${FILENAME}.tar.gz -C ${DEPLOY_PATH}/${FILENAME}"
-    try ssh -i ${DEPLOY_KEY} ${DEPLOY_USER}@${DEPLOY_ADDRESS} "cd ${DEPLOY_PATH}/${FILENAME} && ls -lah"
-EOF
+    try ssh -i ${DEPLOY_KEY} ${DEPLOY_USER}@${DEPLOY_ADDRESS} "cd ${DEPLOY_PATH}/${FILENAME}/build && sudo ./deploy.sh"
+    #try ssh -i ${DEPLOY_KEY} ${DEPLOY_USER}@${DEPLOY_ADDRESS} "rm -fr ${DEPLOY_PATH}/${FILENAME}/build"
     say "DISCONNECT::SSH -> ${DEPLOY_USER}@${DEPLOY_ADDRESS}"
 else
     say "Missing deploy.sh"
