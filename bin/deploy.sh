@@ -9,7 +9,7 @@ fi
 #
 # Arguments
 #
-while getopts ":u:a:i:p:" opt; do
+while getopts ":u:a:i:p:f:" opt; do
     case ${opt} in
         u)
             DEPLOY_USER=$OPTARG
@@ -76,18 +76,24 @@ if [ -f deploy.sh ]; then
     try chmod +x build/deploy.sh
 fi
 
-FILENAME=${FILE_PREFIX}-`date '+%Y%m%d%H%M%S'`.tar.gz
-say "Create deployment package: ${FILENAME}"
-try tar -zcf ${FILENAME} build
+FILENAME=${FILE_PREFIX}-`date '+%Y%m%d%H%M%S'`
+say "Create deployment package: ${FILENAME}.tar.gz"
+try tar -zcf ${FILENAME}.tar.gz build
 try rm -fr build
-try du -h ${FILENAME}
+try du -h ${FILENAME}.tar.gz
 
 #
 # Do deployment
 #
 if [ -f deploy.sh ]; then
     say "Copying to other server"
-    try scp ${FILENAME} ${DEPLOY_USER}@${DEPLOY_ADDRESS}:${DEPLOY_PATH}/${FILENAME} -i ${DEPLOY_KEY}
+    try scp ${FILENAME}.tar.gz ${DEPLOY_USER}@${DEPLOY_ADDRESS}:${DEPLOY_PATH}/${FILENAME}.tar.gz -i ${DEPLOY_KEY}
+
+    say "CONNECT::SSH -> ${DEPLOY_USER}@${DEPLOY_ADDRESS}"
+    try ssh ${DEPLOY_USER}@${DEPLOY_ADDRESS} "tar -xf ${FILENAME}.tar.gz -C ${FILENAME} && cd ${FILENAME} && sudo ./deploy.sh"
+    say "DISCONNECT::SSH -> ${DEPLOY_USER}@${DEPLOY_ADDRESS}"
 else
     say "Missing deploy.sh"
 fi
+
+say "Build script has finished"
