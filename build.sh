@@ -97,6 +97,7 @@ fi
 #try git --version
 
 say "Creating build folder"
+try rm -fr build
 try mkdir build
 
 #
