@@ -1,7 +1,7 @@
 {
     "name": "grunt-thinkingmedia",
     "description": "Build tools for working on AngularJS projects.",
-    "version": "0.1.32",
+    "version": "0.1.33",
     "homepage": "https://github.com/thinkingmedia/grunt-thinkingmedia",
     "author": {
         "name": "ThinkingMedia",
@@ -21,7 +21,8 @@
     },
     "scripts": {
         "test": "grunt test",
-        "coverage": "grunt coverage"
+        "coverage": "grunt coverage",
+        "postinstall": "chmod +x bin/*.sh"
     },
     "keywords": [
         "gruntplugin",
