@@ -79,4 +79,6 @@ try rm -fr build
 if [ -f deploy.sh ]; then
     say "Copying to other server"
     try scp ${FILENAME} ${DEPLOY_USER}@${DEPLOY_ADDRESS}:${DEPLOY_PATH}/${FILENAME}
+else
+    say "Missing deploy.sh"
 fi
