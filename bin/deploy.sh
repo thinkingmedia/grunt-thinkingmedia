@@ -87,7 +87,7 @@ try du -h ${FILENAME}.tar.gz
 #
 if [ -f deploy.sh ]; then
     say "Copying to other server"
-    try scp ${FILENAME}.tar.gz ${DEPLOY_USER}@${DEPLOY_ADDRESS}:${DEPLOY_PATH}/${FILENAME}.tar.gz -i ${DEPLOY_KEY}
+    try scp -i ${DEPLOY_KEY} ${FILENAME}.tar.gz ${DEPLOY_USER}@${DEPLOY_ADDRESS}:${DEPLOY_PATH}/${FILENAME}.tar.gz
 
     say "CONNECT::SSH -> ${DEPLOY_USER}@${DEPLOY_ADDRESS}"
     try ssh ${DEPLOY_USER}@${DEPLOY_ADDRESS} "tar -xf ${FILENAME}.tar.gz -C ${FILENAME} && cd ${FILENAME} && sudo ./deploy.sh"
