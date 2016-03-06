@@ -90,7 +90,13 @@ if [ -f deploy.sh ]; then
     try scp -i ${DEPLOY_KEY} ${FILENAME}.tar.gz ${DEPLOY_USER}@${DEPLOY_ADDRESS}:${DEPLOY_PATH}/${FILENAME}.tar.gz
 
     say "CONNECT::SSH -> ${DEPLOY_USER}@${DEPLOY_ADDRESS}"
-    try ssh ${DEPLOY_USER}@${DEPLOY_ADDRESS} "tar -xf ${FILENAME}.tar.gz -C ${FILENAME} && cd ${FILENAME} && sudo ./deploy.sh"
+
+    #try ssh -i ${DEPLOY_KEY} ${DEPLOY_USER}@${DEPLOY_ADDRESS} "tar -xf ${FILENAME}.tar.gz -C ${FILENAME} && cd ${FILENAME} && sudo ./deploy.sh"
+    try ssh -i ${DEPLOY_KEY} ${DEPLOY_USER}@${DEPLOY_ADDRESS} << EOF
+        tar -xvf ${FILENAME}.tar.gz -C ${FILENAME};
+        cd ${FILENAME};
+        ls -lah;
+EOF
     say "DISCONNECT::SSH -> ${DEPLOY_USER}@${DEPLOY_ADDRESS}"
 else
     say "Missing deploy.sh"
