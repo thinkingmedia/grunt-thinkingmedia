@@ -92,11 +92,9 @@ if [ -f deploy.sh ]; then
     say "CONNECT::SSH -> ${DEPLOY_USER}@${DEPLOY_ADDRESS}"
 
     #try ssh -i ${DEPLOY_KEY} ${DEPLOY_USER}@${DEPLOY_ADDRESS} "tar -xf ${FILENAME}.tar.gz -C ${FILENAME} && cd ${FILENAME} && sudo ./deploy.sh"
-    try ssh -i ${DEPLOY_KEY} ${DEPLOY_USER}@${DEPLOY_ADDRESS} << EOF
-        mkdir ${DEPLOY_PATH}/${FILENAME}
-        tar -xvf ${DEPLOY_PATH}/${FILENAME}.tar.gz -C ${DEPLOY_PATH}/${FILENAME}
-        cd ${DEPLOY_PATH}/${FILENAME}
-        ls -lah
+    try ssh -i ${DEPLOY_KEY} ${DEPLOY_USER}@${DEPLOY_ADDRESS} "mkdir ${DEPLOY_PATH}/${FILENAME}"
+    try ssh -i ${DEPLOY_KEY} ${DEPLOY_USER}@${DEPLOY_ADDRESS} "tar -xf ${DEPLOY_PATH}/${FILENAME}.tar.gz -C ${DEPLOY_PATH}/${FILENAME}"
+    try ssh -i ${DEPLOY_KEY} ${DEPLOY_USER}@${DEPLOY_ADDRESS} "cd ${DEPLOY_PATH}/${FILENAME} && ls -lah"
 EOF
     say "DISCONNECT::SSH -> ${DEPLOY_USER}@${DEPLOY_ADDRESS}"
 else
