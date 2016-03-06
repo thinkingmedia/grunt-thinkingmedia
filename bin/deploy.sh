@@ -27,6 +27,10 @@ while getopts ":u:a:i:p:" opt; do
             DEPLOY_PATH=$OPTARG
             say "Remote path: ${DEPLOY_PATH}"
             ;;
+        f)
+            FILE_PREFIX=$OPTARG
+            say "File prefix: ${FILE_PREFIX}"
+            ;;
         \?)
             die "invalid option: -$OPTARG"
             ;;
@@ -57,6 +61,10 @@ if [ -f deploy.sh ]; then
     if [ "${DEPLOY_PATH}" == "" ]; then
         die "Path required for remote server."
     fi
+
+    if [ "${FILE_PREFIX}" == "" ]; then
+        FILE_PREFIX = 'build'
+    fi
 fi
 
 #
@@ -68,17 +76,18 @@ if [ -f deploy.sh ]; then
     try chmod +x build/deploy.sh
 fi
 
-FILENAME=build-`date '+%Y-%m-%d-%H-%M'`-`uuidgen -t`.tar.gz
+FILENAME=${FILE_PREFIX}-`date '+%Y%m%d%H%M%S'`.tar.gz
 say "Create deployment package: ${FILENAME}"
 try tar -zcf ${FILENAME} build
 try rm -fr build
+try du -h ${FILENAME}
 
 #
 # Do deployment
 #
 if [ -f deploy.sh ]; then
     say "Copying to other server"
-    try scp ${FILENAME} ${DEPLOY_USER}@${DEPLOY_ADDRESS}:${DEPLOY_PATH}/${FILENAME}
+    try scp ${FILENAME} ${DEPLOY_USER}@${DEPLOY_ADDRESS}:${DEPLOY_PATH}/${FILENAME} -i ${DEPLOY_KEY}
 else
     say "Missing deploy.sh"
 fi
