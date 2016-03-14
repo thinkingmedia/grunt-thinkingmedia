@@ -28,8 +28,7 @@ module.exports = function (grunt) {
             sass: {
                 options: {
                     atBegin: true,
-                    spawn: false,
-                    interrupt: true
+                    spawn: false
                 },
                 files: sass,
                 tasks: [
@@ -59,7 +58,7 @@ module.exports = function (grunt) {
 
             watch['index'] = {
                 options: {
-                    atBegin: true,
+                    atBegin: false,
                     event: ['changed']
                 },
                 files: grunt.config('index.dev.src'),
