@@ -44,6 +44,7 @@ module.exports = function (grunt) {
             var js = _.map(c.config().src, function (dir) {
                 return dir + '/**/*.js';
             });
+
             watch['js'] = {
                 options: {
                     atBegin: true,
@@ -55,6 +56,18 @@ module.exports = function (grunt) {
                     'beep'
                 ]
             };
+
+            watch['index'] = {
+                options: {
+                    atBegin: true,
+                    event: ['changed']
+                },
+                files: grunt.config('index.dev.src'),
+                tasks: [
+                    'index:dev',
+                    'beep'
+                ]
+            }
         }
 
         grunt.config('watcher', watch);
