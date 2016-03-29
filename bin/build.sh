@@ -41,7 +41,7 @@ fi
 #
 # Grunt
 #
-if [ -f Gruntfile.json ]; then
+if [ -f Gruntfile.js ]; then
     say "Building grunt"
     try ruby -v
     try gem -v
@@ -66,7 +66,7 @@ fi
 # PHP Composer
 #
 if [ -f composer.json ]; then
-    say "Install vendor modules"
+    say "Install composer"
     try php --version
     try composer --version
     try rm -fr vendor
