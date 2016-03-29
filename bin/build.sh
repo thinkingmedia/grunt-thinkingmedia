@@ -39,6 +39,17 @@ if [ -f package.json ]; then
 fi
 
 #
+# Bower
+#
+if [ -f bower.json ]; then
+    say "Building bower"
+    try bower --version
+    try rm -fr www/bower
+    try rm -fr webroot/bower
+    try bower install --allow-root
+fi
+
+#
 # Grunt
 #
 if [ -f Gruntfile.js ]; then
@@ -49,17 +60,6 @@ if [ -f Gruntfile.js ]; then
     try compass -v
     try grunt --version
     try grunt --verbose --debug dev
-fi
-
-#
-# Bower
-#
-if [ -f bower.json ]; then
-    say "Building bower"
-    try bower --version
-    try rm -fr www/bower
-    try rm -fr webroot/bower
-    try bower install --allow-root
 fi
 
 #
