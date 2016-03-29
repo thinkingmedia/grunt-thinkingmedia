@@ -1,6 +1,7 @@
 #!/bin/bash
-
+#
 # Echo a heading
+#
 say() {
     echo -e "\e[36m$0: ===========================\e[0m" >&1;
     echo -e "\e[36m$0: $*\e[0m" >&1;

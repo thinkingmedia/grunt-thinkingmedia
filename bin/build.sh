@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 ######################################################################
 #
 # This is a generic build script that I use on my build servers. It

@@ -1,5 +1,6 @@
 #!/bin/bash
-
+#
+#
 source $(dirname $0)/functions.sh
 
 if [ ! -d build ]; then
