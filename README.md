@@ -1,4 +1,4 @@
-# grunt-thinkingmedia 
+# grunt-thinkingmedia
 
 [![Join the chat at https://gitter.im/thinkingmedia/grunt-thinkingmedia](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/thinkingmedia/grunt-thinkingmedia?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://secure.travis-ci.org/thinkingmedia/grunt-thinkingmedia.png?branch=master)](http://travis-ci.org/thinkingmedia/grunt-thinkingmedia)
@@ -183,7 +183,7 @@ grunt.initConfig({
         src: './www/_index.html',
         dest: './www/index.html'
     },
-    build: {
+    prod: {
         options: {
             js: [
                 '/js/my_app.min.js'
@@ -199,10 +199,10 @@ grunt.initConfig({
 });
 ```
 
-Each task target uses grunt's file mapping to locate the source of the template and the output for the generated result. It's important to only define 1 file as the source and 1 file as the destination for each sub-task. 
+Each task target uses grunt's file mapping to locate the source of the template and the output for the generated result. It's important to only define 1 file as the source and 1 file as the destination for each sub-task.
 
 In the above example I've created two targets, one for *development* named `dev` and one for *production* named `build`. While these tasks will create the `index.html` file for both environments. They often have different requirements. For example; we want the production version of `index.html` to only load minified versions of the Javascript and CSS files. In the development version we want to load each vendor file separately, and also load the source code to our AngularJS project.
- 
+
  When loading source code for AngularJS it's important to load each Javascript file in the correct order. Otherwise a file that defines a component for a module might be loaded before the file that defined the module itself. We solve this problem by assuming directory tree depth also defines load priority. Will Javascript files in a directory being loaded *before* files in a sub-directory.
 
 ### Options
@@ -219,7 +219,7 @@ Type: `string|function|boolean`
 
 Default value: `auto`
 
-Adds a variable named `version` that can be used during template generation. By default, the variable reads the value found in `package.json`. Assign the value `false` to disable this feature, or use a custom function that returns the version value. 
+Adds a variable named `version` that can be used during template generation. By default, the variable reads the value found in `package.json`. Assign the value `false` to disable this feature, or use a custom function that returns the version value.
 
 #### options.js
 Type: `string[]`
@@ -339,7 +339,7 @@ grunt.initConfig({
         src: './www/_index.html',
         dest: './www/index.html'
     },
-    build: {
+    prod: {
         options: {
             js: [
                 'https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js',

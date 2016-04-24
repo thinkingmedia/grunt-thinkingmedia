@@ -75,7 +75,7 @@ module.exports = function (grunt) {
                 });
 
                 var tasks = [
-                    'build:dev'
+                    //'build:dev'
                 ];
                 if (grunt.file.exists(c.config().webroot + path.sep + 'css')) {
                     tasks.push('sass:build');
@@ -87,6 +87,9 @@ module.exports = function (grunt) {
                 tasks.push('uglify:build');
                 if (grunt.config('package')) {
                     tasks.push('package');
+                }
+                if (grunt.config('index.prod')) {
+                    tasks.push('index:prod');
                 }
                 grunt.task.run(tasks);
                 break;
