@@ -74,9 +74,7 @@ module.exports = function (grunt) {
                     files: files
                 });
 
-                var tasks = [
-                    //'build:dev'
-                ];
+                var tasks = [];
                 if (grunt.file.exists(c.config().webroot + path.sep + 'css')) {
                     tasks.push('sass:build');
                 }

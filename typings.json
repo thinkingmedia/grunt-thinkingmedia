@@ -1,6 +1,0 @@
-{
-  "ambientDependencies": {
-    "gruntjs": "github:DefinitelyTyped/DefinitelyTyped/gruntjs/gruntjs.d.ts#9cb096f5de68d76b1faecde6f233b193f0736b6a",
-    "node": "github:DefinitelyTyped/DefinitelyTyped/node/node.d.ts#aee0039a2d6686ec78352125010ebb38a7a7d743"
-  }
-}
