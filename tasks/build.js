@@ -23,10 +23,16 @@ module.exports = function (grunt) {
 
         switch (type) {
             case 'dev':
-                grunt.task.run(['sass:dev']);
+                var devTasks = [];
+                grunt.task.exists('pre-build') && devTasks.push('pre-build.dev');
+                devTasks.push('sass:dev');
                 if (grunt.config('index.dev')) {
-                    grunt.task.run(['index:dev']);
+                    grunt.task.exists('pre-index') && devTasks.push('pre-index.dev');
+                    devTasks.push('index:dev');
+                    grunt.task.exists('post-index') && devTasks.push('post-index.dev');
                 }
+                grunt.task.exists('post-build') && devTasks.push('post-build.dev');
+                grunt.task.run(devTasks);
                 break;
             case 'prod':
 
@@ -74,22 +80,28 @@ module.exports = function (grunt) {
                     files: files
                 });
 
-                var tasks = [];
+                var prodTasks = [];
+                grunt.task.exists('pre-build') && prodTasks.push('pre-build.prod');
                 if (grunt.file.exists(c.config().webroot + path.sep + 'css')) {
-                    tasks.push('sass:build');
+                    prodTasks.push('sass:build');
                 }
                 if (c.config().templates !== false) {
-                    tasks.push('htmlmin');
-                    tasks.push('html2js');
+                    prodTasks.push('htmlmin');
+                    prodTasks.push('html2js');
                 }
-                tasks.push('uglify:build');
+                prodTasks.push('uglify:build');
                 if (grunt.config('package')) {
-                    tasks.push('package');
+                    grunt.task.exists('pre-package') && prodTasks.push('pre-package.prod');
+                    prodTasks.push('package');
+                    grunt.task.exists('post-package') && prodTasks.push('post-package.prod');
                 }
                 if (grunt.config('index.prod')) {
-                    tasks.push('index:prod');
+                    grunt.task.exists('pre-index') && prodTasks.push('pre-index.prod');
+                    prodTasks.push('index:prod');
+                    grunt.task.exists('post-index') && prodTasks.push('post-index.prod');
                 }
-                grunt.task.run(tasks);
+                grunt.task.exists('post-build') && prodTasks.push('post-build.prod');
+                grunt.task.run(prodTasks);
                 break;
         }
     });

@@ -44,8 +44,6 @@ module.exports = function (grunt) {
                 grunt.fail.fatal('Could not resolve source for: ' + src);
             }
 
-            //var parse = path.parse(dest + src.substr(base.length));
-            //var outfile = parse.dir + path.sep + parse.name + ".css";
             var parse = path.parse(src);
             var outfile = dest + path.sep + parse.name + (options.style === 'compressed' ? ".min.css" : ".css");
 

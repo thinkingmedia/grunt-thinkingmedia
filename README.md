@@ -3,7 +3,7 @@
 [![Join the chat at https://gitter.im/thinkingmedia/grunt-thinkingmedia](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/thinkingmedia/grunt-thinkingmedia?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://secure.travis-ci.org/thinkingmedia/grunt-thinkingmedia.png?branch=master)](http://travis-ci.org/thinkingmedia/grunt-thinkingmedia)
 
-> Build tools for working on AngularJS projects.
+This grunt project is maintained by [ThinkingMedia](http://www.thinkingmedia.ca). It is the main build script used to compile the resources used by [ahTag.com](http://www.ahtag.com).
 
 [![NPM](https://nodei.co/npm/grunt-thinkingmedia.png)](https://nodei.co/npm/grunt-thinkingmedia/)
 
@@ -12,12 +12,16 @@
 * [Overview](#overview)
 * [Usage](#usage)
 * [Config](#config)
-* [Task SASS](#task-sass)
-* [Task Watch](#task-watch)
-* [Task Version](#task-version)
-* [Task Increment](#task-increment)
-* [Task Build](#task-build)
-* [Task Index](#task-index)
+* [Tasks](#tasks)
+* [Build](#build)
+* [Index](#index)
+* [SASS](#sass)
+* [Watch](#watch)
+* [Version](#version)
+* [Increment](#increment)
+* [Help](#help)
+* [Bugs & Feedback](#bugs--feedback)
+* [License](#license)
 
 ## Overview
 [[Back To Top]](#jump-to-section)
@@ -69,11 +73,11 @@ This is the location of the public web server folder.
 
 #### config.build
 
-This is where to place packaged files for deployment or distribution.
+This is the folder that will be created when the `build.prod` task is executed. This is the main artifact created by the build script for deployments.
 
 #### config.temp
 
-A temp folder that is used to process template files.
+A temp folder that is used to during the build process. It should not be used by any other process.
 
 #### config.src
 
@@ -81,74 +85,42 @@ This is a list of directories that contain both SASS and JS files. These directo
 
 #### config.templates
 
-This is the name of the AngularJS module used to load HTML templates.
+This is the name of the AngularJS module used to load HTML templates. The HTML files are taken from the above `config.src` locations.
 
-### Task SASS
+## Tasks
 [[Back To Top]](#jump-to-section)
 
-To compile SASS files to CSS.
+There are three main tasks associated with building files (`build`, `sass` and `index`). There are extra utility tasks like `version` that help you manage
+a project. You can read more detailed information about each task below.
 
-```shell
-grunt sass
-grunt sass:dev
-```
-
-To compile SASS files to the build directory.
-
-```shell
-grunt sass:build
-```
-
-### Task Watch
+### Build
 [[Back To Top]](#jump-to-section)
 
-To watch fo changes to `*.sass` and `*.scss` files, and for adding/deleting `*.js` files.
+This is the default task that is executed when you run `grunt` without any parameters. It will execute the `build:prod` task to create the
+build artifacts in the build folder. The build task can perform two types of builds, the `prod` (short for production) for output artifacts, and
+the `dev` (short for development) for updating files used during development.
 
-```shell
-grunt watch
-```
+- The task `dev` is an alias for `build:dev`
+- The task `prod` is an alias for `build:prod`
+- The task `build` is an alias for `build:prod`
 
-The above will execute the `sass:dev` task, and the `index:dev` tasks when changes are made.
+You can not execute both `build:dev` and `build:prod` at the same time, because there can be collision on files that
+are updated. For example; `index.html` might be written differently for development and production.
 
-### Task Version
-[[Back To Top]](#jump-to-section)
-
-To output the current project version.
-
-```shell
-grunt version
-grunt ver
-```
-
-### Task Increment
-[[Back To Top]](#jump-to-section)
-
-To increment the current version.
-
-```shell
-grunt increment
-grunt inc
-```
-
-### Task Build
-[[Back To Top]](#jump-to-section)
-
-To perform all tasks related to the development environment.
+Developers do not build artifacts but instead work from the webroot folder. They need to have SASS files compiled and the `index.html` file updated. To
+update the webroot manually, you would execute `build:dev` like this.
 
 ```shell
 grunt dev
-grunt build:dev
 ```
 
-To perform all tasks related to building the production environment or packaging.
+To build the deployment artifacts to the build folder. You would execute `build:prod` like this.
 
 ```shell
-grunt build
-grunt build:prod
+grunt
 ```
 
-
-### Task Index
+### Index
 [[Back To Top]](#jump-to-section)
 
 The *index* task handles the creation of the `index.html` file. For most of my AngularJS projects this file is a static resource on the web server, but if you are generating your `index.html` file dynamically. This task can be skipped.
@@ -356,3 +328,74 @@ grunt.initConfig({
   },
 });
 ```
+
+### SASS
+[[Back To Top]](#jump-to-section)
+
+SASS files have to be located in the `config.src` directories. This task compiles those files into CSS files. It is executed as part of the `build` task.
+
+To compile the SASS files to CSS folder in the webroot (as part of `build:dev`).
+
+```shell
+grunt sass
+grunt sass:dev
+```
+
+To compile SASS files to the build directory (as part of `build:prod`).
+
+```shell
+grunt sass:build
+```
+
+### Watch
+[[Back To Top]](#jump-to-section)
+
+This is a developer utility task that watches for changes to files in the `config.src` directories. It watches for changes to SASS, JavaScript and
+the `index.html` file. When a chance is detected to SASS files that `sass:dev` task is executed, and when changes to JavaScript files is detected
+the `index:dev` task is executed.
+
+```shell
+grunt watch
+```
+
+> This task features a beep indicator that is sounded when compiling is finished.
+
+### Version
+[[Back To Top]](#jump-to-section)
+
+To output the current project version.
+
+```shell
+grunt version
+grunt ver
+```
+
+### Increment
+[[Back To Top]](#jump-to-section)
+
+To increment the current version.
+
+```shell
+grunt increment
+grunt inc
+```
+
+### Help
+[[Back To Top]](#jump-to-section)
+
+There are many child tasks included in this project that perform a specific things, and some of those are outside the scope of the README. You can
+list all tasks and a description of their usage by executing the `help` task.
+
+```shell
+grunt help
+```
+
+## Bugs & Feedback
+[[Back To Top]](#jump-to-section)
+
+http://github.com/thinkingmedia/grunt-thinkingmedia/issues
+
+## License
+[[Back To Top]](#jump-to-section)
+
+Copyright (c) 2015, ThinkingMedia and licensed under [The MIT License](http://www.opensource.org/licenses/mit-license.php).
