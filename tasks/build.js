@@ -24,14 +24,14 @@ module.exports = function (grunt) {
         switch (type) {
             case 'dev':
                 var devTasks = [];
-                grunt.task.exists('pre-build') && devTasks.push('pre-build.dev');
+                grunt.task.exists('pre-build') && devTasks.push('pre-build:dev');
                 devTasks.push('sass:dev');
                 if (grunt.config('index.dev')) {
-                    grunt.task.exists('pre-index') && devTasks.push('pre-index.dev');
+                    grunt.task.exists('pre-index') && devTasks.push('pre-index:dev');
                     devTasks.push('index:dev');
-                    grunt.task.exists('post-index') && devTasks.push('post-index.dev');
+                    grunt.task.exists('post-index') && devTasks.push('post-index:dev');
                 }
-                grunt.task.exists('post-build') && devTasks.push('post-build.dev');
+                grunt.task.exists('post-build') && devTasks.push('post-build:dev');
                 grunt.task.run(devTasks);
                 break;
             case 'prod':
@@ -91,16 +91,16 @@ module.exports = function (grunt) {
                 }
                 prodTasks.push('uglify:build');
                 if (grunt.config('package')) {
-                    grunt.task.exists('pre-package') && prodTasks.push('pre-package.prod');
+                    grunt.task.exists('pre-package') && prodTasks.push('pre-package:prod');
                     prodTasks.push('package');
-                    grunt.task.exists('post-package') && prodTasks.push('post-package.prod');
+                    grunt.task.exists('post-package') && prodTasks.push('post-package:prod');
                 }
                 if (grunt.config('index.prod')) {
-                    grunt.task.exists('pre-index') && prodTasks.push('pre-index.prod');
+                    grunt.task.exists('pre-index') && prodTasks.push('pre-index:prod');
                     prodTasks.push('index:prod');
-                    grunt.task.exists('post-index') && prodTasks.push('post-index.prod');
+                    grunt.task.exists('post-index') && prodTasks.push('post-index:prod');
                 }
-                grunt.task.exists('post-build') && prodTasks.push('post-build.prod');
+                grunt.task.exists('post-build') && prodTasks.push('post-build:prod');
                 grunt.task.run(prodTasks);
                 break;
         }
