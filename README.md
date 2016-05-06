@@ -91,7 +91,7 @@ This is the name of the AngularJS module used to load HTML templates. The HTML f
 [[Back To Top]](#jump-to-section)
 
 There are three main tasks associated with building files (`build`, `sass` and `index`). There are extra utility tasks like `version` that help you manage
-a project. You can read more detailed information about each task below.
+a project, and you can read more details about those tasks below.
 
 ### Build
 [[Back To Top]](#jump-to-section)
@@ -105,7 +105,7 @@ the `dev` (short for development) for updating files used during development.
 - The task `build` is an alias for `build:prod`
 
 You can not execute both `build:dev` and `build:prod` at the same time, because there can be collision on files that
-are updated. For example; `index.html` might be written differently for development and production.
+are updated by both. For example; `index.html` might be written differently for development and production.
 
 Developers do not build artifacts but instead work from the webroot folder. They need to have SASS files compiled and the `index.html` file updated. To
 update the webroot manually, you would execute `build:dev` like this.
@@ -123,9 +123,14 @@ grunt
 ### Index
 [[Back To Top]](#jump-to-section)
 
-The *index* task handles the creation of the `index.html` file. For most of my AngularJS projects this file is a static resource on the web server, but if you are generating your `index.html` file dynamically. This task can be skipped.
+The `index` task handles the updating of the `index.html` file. There are 4 pieces of data that are injected into the index template.
 
-In your project's Gruntfile add a section named `index` to the data object passed into `grunt.initConfig()`.
+- Custom template variables
+- A list of JavaScript files (usually vendor files)
+- A list of CSS files (your compiled CSS file, plus vendor CSS files)
+- A list of JavaScript files from the developers source code folder
+
+Here is an example configuration:
 
 ```js
 grunt.initConfig({
@@ -171,11 +176,17 @@ grunt.initConfig({
 });
 ```
 
-Each task target uses grunt's file mapping to locate the source of the template and the output for the generated result. It's important to only define 1 file as the source and 1 file as the destination for each sub-task.
+Each task target uses grunt's file mapping to locate the source of the template and the output for the generated result. It's important to only define 1
+file as the source and 1 file as the destination for each sub-task.
 
-In the above example I've created two targets, one for *development* named `dev` and one for *production* named `build`. While these tasks will create the `index.html` file for both environments. They often have different requirements. For example; we want the production version of `index.html` to only load minified versions of the Javascript and CSS files. In the development version we want to load each vendor file separately, and also load the source code to our AngularJS project.
+In the above example I've created two targets, one for *development* named `dev` and one for *production* named `build`. While these tasks will
+create the `index.html` file for both environments. They often have different requirements. For example; we want the production version of `index.html`
+to only load minified versions of the Javascript and CSS files. In the development version we want to load each vendor file separately, and also load the
+source code to our AngularJS project.
 
- When loading source code for AngularJS it's important to load each Javascript file in the correct order. Otherwise a file that defines a component for a module might be loaded before the file that defined the module itself. We solve this problem by assuming directory tree depth also defines load priority. Will Javascript files in a directory being loaded *before* files in a sub-directory.
+When loading source code for AngularJS it's important to load each Javascript file in the correct order. Otherwise a file that defines a component for a
+module might be loaded before the file that defined the module itself. We solve this problem by assuming directory tree depth also defines load priority.
+Will Javascript files in a directory being loaded *before* files in a sub-directory.
 
 ### Options
 
