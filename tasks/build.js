@@ -37,23 +37,24 @@ module.exports = function (grunt) {
             case 'prod':
 
                 if (c.config().templates !== false) {
-                    // map source HTML to temp HTML paths.
+                    // this will minify the HTML and copy it to the temp folder
                     var sources = c.toHTML(c.config().files);
                     var dests = _.map(sources, function (file) {
                         return c.config().temp + file.substr(c.config().webroot.length);
                     });
-
                     grunt.config('htmlmin', {
                         build: {
                             options: {
                                 collapseWhitespace: true,
                                 removeComments: true
                             },
+                            // @todo zipObject was removed in latest Lodash versions.
                             files: _.zipObject(dests, sources)
                         }
                     });
 
-                    var templatesFile = c.config().temp + path.sep + c.config().templates + '.js';
+                    // this will create the templates module for AngularJS
+                    var templateModuleFile = c.config().temp + path.sep + c.config().templates + '.js';
                     grunt.config('html2js', {
                         options: {
                             base: c.config().temp,
@@ -63,7 +64,7 @@ module.exports = function (grunt) {
                         },
                         prod: {
                             src: c.config().temp + '/**/*.html',
-                            dest: templatesFile
+                            dest: templateModuleFile
                         }
                     });
                 }
@@ -72,7 +73,8 @@ module.exports = function (grunt) {
                 var files = {};
                 files[jsTarget] = c.toJS(c.config().files);
                 if (c.config().templates !== false) {
-                    files[jsTarget].push(templatesFile);
+                    // add the template module to the top so that it exists when the App is created.
+                    files[jsTarget].unshift(templateModuleFile);
                 }
 
                 grunt.config('uglify.build', {
